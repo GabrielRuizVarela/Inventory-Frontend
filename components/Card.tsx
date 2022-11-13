@@ -10,27 +10,31 @@ import { CardActionArea } from "@mui/material";
 
 export default function MediaCard({ item }: { item: Item }) {
 	return (
-		<CardActionArea sx={{ maxWidth: 345 }}>
-			<Card>
-				<CardMedia
-					component="img"
-					height="140"
-					image="/stock-photo.jpg"
-					alt="green iguana"
-				/>
-				<CardContent>
-					<Typography gutterBottom={true} variant="h5" component="div">
-						{item.name}
-					</Typography>
-					<Typography variant="body2" color="text.secondary">
-						{item.description}
-					</Typography>
-				</CardContent>
-				<CardActions>
-					<Button size="small">Price: {item.price}</Button>
-					<Button size="small">Stock: {item.stock}</Button>
-				</CardActions>
-			</Card>
-		</CardActionArea>
+		<>
+			{item ? (
+				<CardActionArea sx={{ maxWidth: 345 }}>
+					<Card>
+						<CardMedia
+							component="img"
+							height="140"
+							image="/stock-photo.jpg"
+							alt="green iguana"
+						/>
+						<CardContent>
+							<Typography gutterBottom={true} variant="h5" component="div">
+								{item.name}
+							</Typography>
+							<Typography variant="body2" color="text.secondary">
+								{item.description}
+							</Typography>
+						</CardContent>
+						<CardActions>
+							<Button size="small">Price: {item.price}</Button>
+							<Button size="small">Stock: {item.stock}</Button>
+						</CardActions>
+					</Card>
+				</CardActionArea>
+			) : null}
+		</>
 	);
 }
