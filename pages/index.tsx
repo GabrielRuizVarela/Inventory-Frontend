@@ -17,6 +17,7 @@ import { Box } from "@mui/system";
 import { Props, ScriptProps } from "next/script";
 import { Block } from "@mui/icons-material";
 import Sidebar from "../components/Sidebar";
+import Card from "../components/Card";
 
 // fetch from serverside
 export async function getServerSideProps() {
@@ -27,7 +28,7 @@ export async function getServerSideProps() {
 		props: { data },
 	};
 }
-type Item = {
+export type Item = {
 	_id: string;
 	name: string;
 	price: number;
@@ -41,7 +42,7 @@ type Item = {
 	};
 };
 
-export default function Home({ data }: { data: Item[]}) {
+export default function Home({ data }: { data: Item[] }) {
 	console.log(data);
 	return (
 		<div className={styles.container}>
@@ -54,16 +55,19 @@ export default function Home({ data }: { data: Item[]}) {
 
 			<Sidebar />
 			<SearchBar />
-			<main className={styles.main}>
+			<main className={styles.main}
+      style={{
+        display: "flex",
+        flexDirection: "row",
+        flexWrap: "wrap",
+        // justifyContent: "center",
+        alignItems: "center",
+        alignContent: "center",
+        gap: "1rem",
+      }}
+      >
 				{data.map((item) => (
-					<div key={item._id}>
-						<h1>{item.name}</h1>
-						<p>{item.description}</p>
-						<p>{item.price}</p>
-						<p>{item.stock}</p>
-						<p>{item.category.name}</p>
-						{/* <Image src={img} width={200} height={200} alt={item.name} /> */}
-					</div>
+					<Card key={item._id} item={item} />
 				))}
 			</main>
 
