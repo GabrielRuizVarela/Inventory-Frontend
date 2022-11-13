@@ -4,6 +4,7 @@ import Image from "next/image";
 import SearchBar from "../components/SearchBar";
 import styles from "../styles/Home.module.css";
 import {
+	Container,
 	Divider,
 	Drawer,
 	List,
@@ -18,6 +19,8 @@ import { Props, ScriptProps } from "next/script";
 import { Block } from "@mui/icons-material";
 import Sidebar from "../components/Sidebar";
 import Card from "../components/Card";
+import Grid2 from "@mui/material/Unstable_Grid2"; // Grid version 2
+import Table from "../components/Table";
 
 // fetch from serverside
 export async function getServerSideProps() {
@@ -55,20 +58,46 @@ export default function Home({ data }: { data: Item[] }) {
 
 			<Sidebar />
 			<SearchBar />
-			<main className={styles.main}
-      style={{
-        display: "flex",
-        flexDirection: "row",
-        flexWrap: "wrap",
-        // justifyContent: "center",
-        alignItems: "center",
-        alignContent: "center",
-        gap: "1rem",
-      }}
-      >
-				{data.map((item) => (
-					<Card key={item._id} item={item} />
-				))}
+			<main
+				className={
+					styles.main
+				}
+				// style={{
+				// 	display: "flex",
+				// 	justifyContent: "center",
+				// }}
+			>
+				<Grid2
+					container={true}
+					spacing={{ xs: 2, md: 3 }}
+					columns={{ xs: 4, sm: 8, md: 12 }}
+					sx={
+						{
+							// 		display: "flex",
+							// 		flexDirection: "row",
+							// 		flexWrap: "wrap",
+							// justifyContent: "center",
+							// alignItems: "center",
+							// alignContent: "center",
+							// 		gap: "1rem",
+						}
+					}
+				>
+					{data.map((item) => (
+						<Grid2
+							xs={4}
+							sx={{
+								display: "flex",
+								justifyContent: "center",
+							}}
+						>
+							<Card key={item._id} item={item} />
+						</Grid2>
+					))}
+				</Grid2>
+				<Container>
+					<Table items={data} />
+				</Container>
 			</main>
 
 			{/* <main className={styles.main}>
