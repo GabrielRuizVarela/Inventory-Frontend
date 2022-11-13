@@ -25,10 +25,15 @@ import Table from "../components/Table";
 // fetch from serverside
 export async function getServerSideProps() {
 	const res = await fetch("http://localhost:5050/items/");
+	const res2 = await fetch("http://localhost:5050/categorys/");
 	// console.log(res);
 	const data = await res.json();
+	const data2 = await res2.json();
 	return {
-		props: { data },
+		props: {
+			serverItems: data,
+			serverCategorys: data2,
+		},
 	};
 }
 export type Item = {
@@ -45,8 +50,24 @@ export type Item = {
 	};
 };
 
-export default function Home({ data }: { data: Item[] }) {
-	console.log(data);
+export type Category = {
+	_id: string;
+	name: string;
+	description: string;
+};
+
+export default function Home({
+	serverItems,
+	serverCategorys,
+}: { serverItems: Item[]; serverCategorys: Category[] }) {
+	console.log(serverCategorys);
+	const [items, setItems] = React.useState<Item[] | null>(null);
+	const [categorys, setCategorys] = React.useState<Category[] | null>(null);
+	useEffect(() => {
+		setItems(serverItems);
+		setCategorys(serverCategorys);
+	}, []);
+
 	return (
 		<div className={styles.container}>
 			<Head>
@@ -56,7 +77,7 @@ export default function Home({ data }: { data: Item[] }) {
 			</Head>
 			{/* <SearchBar /> */}
 
-			<Sidebar />
+			<Sidebar categorys={serverCategorys} />
 			<SearchBar />
 			<main
 				className={
@@ -83,7 +104,7 @@ export default function Home({ data }: { data: Item[] }) {
 						}
 					}
 				>
-					{data.map((item) => (
+					{(items ? items : []).map((item) => (
 						<Grid2
 							xs={4}
 							sx={{
@@ -96,7 +117,7 @@ export default function Home({ data }: { data: Item[] }) {
 					))}
 				</Grid2>
 				<Container>
-					<Table items={data} />
+					<Table items={items || []} />
 				</Container>
 			</main>
 

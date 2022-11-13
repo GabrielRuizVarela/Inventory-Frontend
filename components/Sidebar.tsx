@@ -16,6 +16,7 @@ import MenuIcon from "@mui/icons-material/Menu";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import SearchAppBar from "./SearchBar";
+import { Category } from "../pages";
 
 const drawerWidth = 240;
 
@@ -25,10 +26,12 @@ interface Props {
 	 * You won't need it on your project.
 	 */
 	window?: () => Window;
+	categorys: Category[];
 }
 
 export default function ResponsiveDrawer(props: Props) {
 	const { window } = props;
+	const { categorys } = props;
 	const [mobileOpen, setMobileOpen] = React.useState(false);
 
 	const handleDrawerToggle = () => {
@@ -40,29 +43,14 @@ export default function ResponsiveDrawer(props: Props) {
 			<Toolbar />
 			<Divider />
 			<List>
-				{["Inbox", "Starred", "Send email", "Drafts"].map((text, index) => (
-					<ListItem key={text} disablePadding={true}>
+				{categorys.map((item, index) => (
+					<ListItem key={item.name} disablePadding={true}>
 						<ListItemButton>
-							<ListItemIcon>
-								{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-							</ListItemIcon>
-							<ListItemText primary={text} />
+							<ListItemText primary={item.name} />
 						</ListItemButton>
 					</ListItem>
 				))}
-			</List>
-			<Divider />
-			<List>
-				{["All mail", "Trash", "Spam"].map((text, index) => (
-					<ListItem key={text} disablePadding={true}>
-						<ListItemButton>
-							<ListItemIcon>
-								{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-							</ListItemIcon>
-							<ListItemText primary={text} />
-						</ListItemButton>
-					</ListItem>
-				))}
+				<Divider />
 			</List>
 		</div>
 	);
