@@ -7,15 +7,17 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import { Item } from "../pages";
+import { Button, IconButton } from "@mui/material";
+import { DeleteOutline } from '@mui/icons-material'
 
 function createData(
-	name: string,
-	calories: number,
-	fat: number,
-	carbs: number,
-	protein: number,
+  name: string,
+  calories: number,
+  fat: number,
+  carbs: number,
+  protein: number,
 ) {
-	return { name, calories, fat, carbs, protein };
+  return { name, calories, fat, carbs, protein };
 }
 
 // const rows = [
@@ -26,32 +28,40 @@ function createData(
 // 	createData("Gingerbread", 356, 16.0, 49, 3.9),
 // ];
 
-export default function DenseTable({ items }: { items: Item[] }) {
-	return (
-		<TableContainer component={Paper}>
-			<Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table">
-				<TableHead>
-					<TableRow>
-						<TableCell align="center">Name</TableCell>
-						<TableCell align="center">Category</TableCell>
-						<TableCell align="center">Price</TableCell>
-						<TableCell align="center">Stock</TableCell>
-					</TableRow>
-				</TableHead>
-				<TableBody>
-					{items.map((item) => (
-						<TableRow
-							key={item.name}
-							sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-						>
-							<TableCell align="center">{item.name}</TableCell>
-							<TableCell align="center">{item.category.name}</TableCell>
-							<TableCell align="center">{item.price}</TableCell>
-							<TableCell align="center">{item.stock}</TableCell>
-						</TableRow>
-					))}
-				</TableBody>
-			</Table>
-		</TableContainer>
-	);
+export default function DenseTable({ items, removeMode }: { items: Item[], removeMode: boolean }) {
+  return (
+    <TableContainer component={Paper}>
+      <Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table">
+        <TableHead>
+          <TableRow>
+            <TableCell align="center">Name</TableCell>
+            <TableCell align="center">Category</TableCell>
+            <TableCell align="center">Price</TableCell>
+            <TableCell align="center">Stock</TableCell>
+            {
+              removeMode &&
+              <TableCell align="center"> <DeleteOutline /></TableCell>
+            }
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {items.map((item) => (
+            <TableRow
+              key={item.name}
+              sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+            >
+              <TableCell align="center">{item.name}</TableCell>
+              <TableCell align="center">{item.category.name}</TableCell>
+              <TableCell align="center">{item.price}</TableCell>
+              <TableCell align="center">{item.stock}</TableCell>
+              {
+                removeMode &&
+                <TableCell align="center"><Button variant="outlined" color="inherit" size="small">Delete</Button></TableCell>
+              }
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
+    </TableContainer>
+  );
 }

@@ -58,7 +58,7 @@ export default function AddItem({ categories, endpoint, initialValues }: { categ
       {!endpoint &&
         <>
           <Sidebar categories={[]} handleSidebarClick={() => { }} />
-          <SearchBar setView={() => { }} detail={true} />
+          <SearchBar setView={() => { }} detail={true} handleRemoveMode={() => { }} />
         </>
       }
       <Container sx={{ marginTop: 12 }}>
@@ -167,7 +167,7 @@ export default function AddItem({ categories, endpoint, initialValues }: { categ
                       {categories.map((category, index) => (
                         <Field
                           component='option'
-                          
+
                           key={category._id}
                           value={category._id}
                           label={category.name}

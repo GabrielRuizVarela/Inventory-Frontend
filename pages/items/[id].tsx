@@ -113,7 +113,7 @@ export default function OverflowCard({
   }
   return (
     <>
-      <SearchBar detail={true} setView={() => { }} />
+      <SearchBar detail={true} setView={() => { }} removeMode={false} />
       <Sidebar categories={[]} handleSidebarClick={() => { }} />
       <Container
         sx={{ display: "flex", justifyContent: "center", marginTop: 14 }}
