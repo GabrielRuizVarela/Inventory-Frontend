@@ -61,7 +61,6 @@ export default function Home({
 	serverItems,
 	serverCategories: serverCategories,
 }: { serverItems: Item[]; serverCategories: Category[] }) {
-	console.log(serverCategories);
 	const [items, setItems] = React.useState<Item[] | null>(null);
 	const [categories, setCategorys] = React.useState<Category[] | []>([]);
 	const [view, setView] = React.useState("grid");
