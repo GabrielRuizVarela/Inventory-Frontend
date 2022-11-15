@@ -51,43 +51,6 @@ export const getServerSideProps = async () => {
 
 export default function AddItem({ categories }: { categories: Category[] }) {
 	const router = useRouter();
-	// const formik = useFormik({
-	// 	initialValues: {
-	// 		name: "",
-	// 		description: "",
-	// 		price: "",
-	// 		category: "",
-	// 	},
-	// 	validationSchema: Yup.object({
-	// 		name: Yup.string()
-	// 			.max(15, "Must be 15 characters or less")
-	// 			.required("Required"),
-	// 	}),
-	// 	onSubmit: (values, { setSubmitting }) => {
-	// 		setTimeout(() => {
-	// 			// alert(JSON.stringify(values, null, 2));
-	// 			setSubmitting(false);
-	// 			// send to server
-	// 			fetch("http://localhost:5050/items/create", {
-	// 				method: "POST",
-	// 				headers: {
-	// 					"Content-Type": "application/json",
-	// 					CORS: "no-cors",
-	// 					"Access-Control-Allow-Origin": "http://localhost:5050",
-	// 				},
-	// 				body: JSON.stringify(values),
-	// 			})
-	// 				.then(() => {
-	// 					router.push("/");
-	// 				})
-	// 				.catch((err) => {
-	// 					console.log(err);
-	// 				});
-	// 		}, 400);
-	// 	},
-	// });
-
-	// const categoriesList = categories.map((category) => category.name);
 	const [categoryValue, setCategoryValue] = React.useState(categories[0]._id);
 	return (
 		<>
@@ -105,7 +68,6 @@ export default function AddItem({ categories }: { categories: Category[] }) {
 								description: "",
 								img_url: "",
 								category: categories[0]._id,
-								// category: "Choose a category",
 							}}
 							validationSchema={Yup.object({
 								name: Yup.string().required("Required"),
@@ -117,14 +79,11 @@ export default function AddItem({ categories }: { categories: Category[] }) {
 							})}
 							onSubmit={(values, { setSubmitting }) => {
 								setTimeout(() => {
-									// alert(JSON.stringify(values, null, 2));
 									setSubmitting(false);
 									fetch("http://localhost:5050/items/create", {
 										method: "POST",
 										headers: {
 											"Content-Type": "application/json",
-											// CORS: "no-cors",
-											// "Access-Control-Allow-Origin": "http://localhost:5050",
 										},
 										body: JSON.stringify(values),
 									})
@@ -175,27 +134,17 @@ export default function AddItem({ categories }: { categories: Category[] }) {
 									label="Image URL"
 								/>
 								<select
-									// component={Select}
-									// as="select"
 									name="category"
-									// label="Category"
-									// type="text"
 									value={categoryValue}
 									onChange={(e) => setCategoryValue(e.target.value)}
 									onBlur={(e) => setCategoryValue(e.target.value)}
 								>
-									{/* <option value="Choose a category" disabled={true}>
-										Choose a category
-									</option> */}
 									{categories.map((category, index) => (
-											<option
-												// component={"option"}
-												// component={MenuItem}
-												// as="option"
-												key={category._id}
-												value={category._id}
-												label={category.name}
-											/>
+										<option
+											key={category._id}
+											value={category._id}
+											label={category.name}
+										/>
 									))}
 								</select>
 								<Button
