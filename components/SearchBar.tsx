@@ -12,6 +12,7 @@ import Drawer from "@mui/material/Drawer";
 import ListIcon from "@mui/icons-material/List";
 import GridViewIcon from "@mui/icons-material/GridView";
 import Link from "next/link";
+import { Add } from "@mui/icons-material";
 
 const drawerWidth = 240;
 
@@ -83,6 +84,11 @@ export default function SearchAppBar({
 				>
 					<Link href={"/"} style={{ textDecoration: "none", color: "inherit" }}>
 						Inventario
+					</Link>
+					<Link href={"/items/add"}>
+						<IconButton>
+							<Add />
+						</IconButton>
 					</Link>
 				</Typography>
 
