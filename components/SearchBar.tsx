@@ -9,6 +9,9 @@ import InputBase from "@mui/material/InputBase";
 import MenuIcon from "@mui/icons-material/Menu";
 import SearchIcon from "@mui/icons-material/Search";
 import Drawer from "@mui/material/Drawer";
+import ListIcon from "@mui/icons-material/List";
+import GridViewIcon from "@mui/icons-material/GridView";
+import Link from "next/link";
 
 const drawerWidth = 240;
 
@@ -54,7 +57,10 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 	},
 }));
 
-export default function SearchAppBar() {
+export default function SearchAppBar({
+	setView,
+	detail,
+}: { setView: (view: string) => void; detail: boolean }) {
 	return (
 		<AppBar
 			variant="elevation"
@@ -69,34 +75,37 @@ export default function SearchAppBar() {
 			}}
 		>
 			<Toolbar>
-				{/* <IconButton
-					size="large"
-					edge="start"
-					color="inherit"
-					aria-label="open drawer"
-					sx={{ mr: 2 }}
-				>
-					<MenuIcon />
-				</IconButton> */}
-
 				<Typography
 					variant="h6"
 					noWrap={true}
 					component="div"
 					sx={{ flexGrow: 1, display: { xs: "none", sm: "block" } }}
 				>
-					Inventario
+					<Link href={"/"} style={{ textDecoration: "none", color: "inherit" }}>
+						Inventario
+					</Link>
 				</Typography>
-				<Search>
-					<SearchIconWrapper>
-						<SearchIcon />
-					</SearchIconWrapper>
-					<StyledInputBase
-						placeholder="Search…"
-						sx={{ border: "1px solid black", borderRadius: "5px" }}
-						inputProps={{ "aria-label": "search" }}
-					/>
-				</Search>
+
+				{detail ? null : (
+					<>
+						<IconButton onClick={() => setView("list")}>
+							<ListIcon />
+						</IconButton>
+						<IconButton onClick={() => setView("grid")}>
+							<GridViewIcon />
+						</IconButton>
+						<Search>
+							<SearchIconWrapper>
+								<SearchIcon />
+							</SearchIconWrapper>
+							<StyledInputBase
+								placeholder="Search…"
+								sx={{ border: "1px solid black", borderRadius: "5px" }}
+								inputProps={{ "aria-label": "search" }}
+							/>
+						</Search>
+					</>
+				)}
 			</Toolbar>
 		</AppBar>
 	);

@@ -33,7 +33,7 @@ export default function DenseTable({ items }: { items: Item[] }) {
 				<TableHead>
 					<TableRow>
 						<TableCell align="center">Name</TableCell>
-						<TableCell align="center">Description</TableCell>
+						<TableCell align="center">Category</TableCell>
 						<TableCell align="center">Price</TableCell>
 						<TableCell align="center">Stock</TableCell>
 					</TableRow>
@@ -45,7 +45,7 @@ export default function DenseTable({ items }: { items: Item[] }) {
 							sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
 						>
 							<TableCell align="center">{item.name}</TableCell>
-							<TableCell align="center">{item.description}</TableCell>
+							<TableCell align="center">{item.category.name}</TableCell>
 							<TableCell align="center">{item.price}</TableCell>
 							<TableCell align="center">{item.stock}</TableCell>
 						</TableRow>

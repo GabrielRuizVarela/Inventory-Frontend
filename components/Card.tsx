@@ -6,7 +6,7 @@ import CardMedia from "@mui/material/CardMedia";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import { Item } from "../pages/index";
-import { CardActionArea } from "@mui/material";
+import { Box, CardActionArea, Stack } from "@mui/material";
 
 export default function MediaCard({ item }: { item: Item }) {
 	return (
@@ -21,17 +21,32 @@ export default function MediaCard({ item }: { item: Item }) {
 							alt="green iguana"
 						/>
 						<CardContent>
-							<Typography gutterBottom={true} variant="h5" component="div">
-								{item.name}
-							</Typography>
+							<Box
+								sx={{
+									display: "flex",
+									justifyContent: "space-between",
+								}}
+							>
+								<Typography gutterBottom={true} variant="h5" component="div">
+									{item.name}
+									<Typography variant="subtitle2">{item.category.name}</Typography>
+								</Typography>
+								<Stack
+									spacing={1}
+									sx={
+										{
+											// display: "flex",
+										}
+									}
+								>
+									<Box component='div'>Price: {item.price}</Box>
+									<Box component='div'>Stock: {item.stock}</Box>
+								</Stack>
+							</Box>
 							<Typography variant="body2" color="text.secondary">
 								{item.description}
 							</Typography>
 						</CardContent>
-						<CardActions>
-							<Button size="small">Price: {item.price}</Button>
-							<Button size="small">Stock: {item.stock}</Button>
-						</CardActions>
 					</Card>
 				</CardActionArea>
 			) : null}

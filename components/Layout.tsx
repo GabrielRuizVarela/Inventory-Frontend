@@ -10,6 +10,11 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 				/>
 				<link
 					rel="stylesheet"
+					href="https://fonts.googleapis.com/css?family=Public+Sans&display=swap"
+				/>
+
+				<link
+					rel="stylesheet"
 					href="https://fonts.googleapis.com/icon?family=Material+Icons"
 				/>
 				<meta name="viewport" content="initial-scale=1, width=device-width" />

@@ -12,7 +12,9 @@
   "dependencies": {
     "@emotion/react": "^11.10.5",
     "@emotion/styled": "^11.10.5",
+    "@fontsource/public-sans": "^4.5.11",
     "@mui/icons-material": "^5.10.9",
+    "@mui/joy": "^5.0.0-alpha.53",
     "@mui/material": "^5.10.13",
     "@types/node": "18.11.9",
     "@types/react": "18.0.25",
