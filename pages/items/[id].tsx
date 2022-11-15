@@ -1,15 +1,15 @@
 import React from "react";
-
-// import {
-// 	Box,
-// 	Card,
-// 	CardActionArea,
-// 	CardContent,
-// 	CardMedia,
-// 	Stack,
-//  Typography,
-// } from "@mui/material";
 import { Category, getServerSideProps, Item } from "../index";
+import AspectRatio from "@mui/joy/AspectRatio";
+import Card from "@mui/joy/Card";
+import CardOverflow from "@mui/joy/CardOverflow";
+import Divider from "@mui/joy/Divider";
+import Typography from "@mui/joy/Typography";
+import { Box } from "@mui/joy";
+import SearchBar from "../../components/SearchBar";
+import Sidebar from "../../components/Sidebar";
+import { Container } from "@mui/system";
+import { Paper } from "@mui/material";
 
 export const getStaticPaths = async () => {
 	const res = await fetch("http://localhost:5050/items/");
@@ -38,19 +38,6 @@ export const getStaticProps = async (context: any) => {
 		props: { item: data, categories: data2 },
 	};
 };
-
-import AspectRatio from "@mui/joy/AspectRatio";
-import Card from "@mui/joy/Card";
-import CardOverflow from "@mui/joy/CardOverflow";
-import Divider from "@mui/joy/Divider";
-import Typography from "@mui/joy/Typography";
-import { Box } from "@mui/joy";
-import SearchBar from "../../components/SearchBar";
-// import SideBar from "../../components/SideBar";
-import Sidebar from "../../components/Sidebar";
-import { Container } from "@mui/system";
-import { Paper } from "@mui/material";
-import { isContext } from "vm";
 
 export default function OverflowCard({
 	item,

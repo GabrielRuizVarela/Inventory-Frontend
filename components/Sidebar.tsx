@@ -27,7 +27,7 @@ interface Props {
 	 * You won't need it on your project.
 	 */
 	window?: () => Window;
-	categories: Category[];
+	categories: Category[] | [];
 	handleSidebarClick: (category: Category) => void;
 }
 
@@ -45,7 +45,7 @@ export default function ResponsiveDrawer(props: Props) {
 			<Toolbar />
 			<Divider />
 			<List>
-				{categories.map((item, index) => (
+				{categories?.map((item, index) => (
 					<Box
 						key={item._id}
 						component='div'
