@@ -65,7 +65,8 @@ export default function SearchAppBar({
   detail,
   handleRemoveMode: handleRemove,
   removeMode,
-}: { setView: (view: string) => void; detail: boolean, handleRemoveMode: () => void, removeMode: boolean }) {
+  tittle,
+}: { setView: (view: string) => void; detail: boolean, handleRemoveMode: () => void, removeMode: boolean, tittle: string }) {
   return (
     <AppBar
       variant="elevation"
@@ -116,7 +117,9 @@ export default function SearchAppBar({
             </Tooltip>
           }
         </Typography>
-
+        <Typography flex={1} variant="h6" noWrap={true} component="div">
+          {tittle}
+        </Typography>
         {detail ? null : (
           <>
             <IconButton onClick={() => setView("list")}>

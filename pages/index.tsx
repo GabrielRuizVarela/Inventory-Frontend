@@ -63,16 +63,17 @@ export default function Home({
 }: { serverItems: Item[]; serverCategories: Category[] }) {
   const [items, setItems] = React.useState<Item[] | null>(null);
   const [categories, setCategorys] = React.useState<Category[] | []>([]);
+  const [activeCategory, setActiveCategory] = React.useState<string>('All');
   const [view, setView] = React.useState("grid");
   const [removeMode, setRemoveMode] = React.useState(false);
   useEffect(() => {
     setItems(serverItems);
     setCategorys([
-      { _id: "all", name: "All", description: "All" },
       ...serverCategories,
     ]);
-  }, []);
+  }, [serverCategories, serverItems]);
   const handleSidebarClick = (item: Category) => {
+    setActiveCategory(item.name);
     if (item._id === "all") {
       setItems(serverItems);
     } else {
@@ -111,8 +112,9 @@ export default function Home({
       <Sidebar
         categories={categories}
         handleSidebarClick={handleSidebarClick}
+        removeMode={removeMode}
       />
-      <SearchBar setView={handleSetView} detail={false} handleRemoveMode={handleRemoveMode} removeMode={removeMode} />
+      <SearchBar setView={handleSetView} detail={false} handleRemoveMode={handleRemoveMode} removeMode={removeMode} tittle={activeCategory} />
       <main className={styles.main}>
         {view === "grid" ? (
           <Grid2
@@ -141,7 +143,7 @@ export default function Home({
           </Grid2>
         ) : (
           <Container sx={{ marginTop: 12 }}>
-            <Table items={items || []} removeMode={removeMode} />
+            <Table items={items || []} removeMode={removeMode} handleDelete={handleDelete} />
           </Container>
         )}
       </main>

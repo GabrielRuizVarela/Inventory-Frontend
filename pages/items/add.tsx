@@ -52,7 +52,6 @@ export const getServerSideProps = async () => {
 
 export default function AddItem({ categories, endpoint, initialValues }: { categories: Category[], endpoint: string, initialValues: Item }) {
   const router = useRouter();
-  const [categoryValue, setCategoryValue] = React.useState(categories[0]._id);
   return (
     <>
       {!endpoint &&
