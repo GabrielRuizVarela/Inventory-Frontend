@@ -28,7 +28,7 @@ function createData(
 // 	createData("Gingerbread", 356, 16.0, 49, 3.9),
 // ];
 
-export default function DenseTable({ items, removeMode }: { items: Item[], removeMode: boolean }) {
+export default function DenseTable({ items, removeMode, handleDelete }: { items: Item[], removeMode: boolean, handleDelete: (id: string) => void }) {
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table">
@@ -56,7 +56,9 @@ export default function DenseTable({ items, removeMode }: { items: Item[], remov
               <TableCell align="center">{item.stock}</TableCell>
               {
                 removeMode &&
-                <TableCell align="center"><Button variant="outlined" color="inherit" size="small">Delete</Button></TableCell>
+                <TableCell align="center"><Button variant="outlined" color="inherit" size="small"
+                  onClick={() => handleDelete(item._id)}
+                >Delete</Button></TableCell>
               }
             </TableRow>
           ))}
