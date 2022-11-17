@@ -12,31 +12,16 @@ import { Paper } from "@mui/material";
 import AddItem from "./add";
 import Fab from '@mui/material/Fab';
 
-export const getStaticPaths = async () => {
-  const res = await fetch("http://localhost:5050/items/");
-  const data = await res.json();
 
-  const paths = data.map((item: Item) => {
-    return {
-      params: { id: item._id },
-    };
-  });
-
-  return {
-    paths,
-    fallback: false,
-  };
-};
-
-export const getStaticProps = async (context: any) => {
+export const getServerSideProps = async (context: any) => {
   const id = context.params.id;
-  const res = await fetch(`http://localhost:5050/items/${id}`);
+  const res = await fetch("http://localhost:5050/items/");
   const data = await res.json();
   const res2 = await fetch("http://localhost:5050/categories/");
   const data2 = await res2.json();
 
   return {
-    props: { item: data, categories: data2 },
+    props: { item: data.filter((i) => i._id === id), categories: data2 },
   };
 };
 
@@ -45,6 +30,7 @@ const ItemCard = ({
   categories,
   handleEditClick,
 }: { item: Item; categories: Category[], handleEditClick: () => void }) => {
+  // get id from url
   return (
     <Paper elevation={5} sx={{ width: 'min-content', borderRadius: 3 }}>
       <Card variant="outlined" sx={{ width: 600 }}>
@@ -126,3 +112,4 @@ export default function OverflowCard({
     </>
   );
 }
+
