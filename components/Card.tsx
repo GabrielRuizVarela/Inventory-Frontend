@@ -1,12 +1,10 @@
 import * as React from "react";
 import Card from "@mui/material/Card";
-import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
-import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import { Item } from "../pages/index";
-import { Box, CardActionArea, Fab, IconButton, Stack } from "@mui/material";
+import { Box, CardActionArea, IconButton, Stack } from "@mui/material";
 import RemoveCircleIcon from '@mui/icons-material/RemoveCircle';
 
 export default function MediaCard({ item, removeMode, handleDelete }: { item: Item, removeMode: boolean, handleDelete: (id: string) => void }) {
@@ -19,8 +17,6 @@ export default function MediaCard({ item, removeMode, handleDelete }: { item: It
             position: "relative",
           }}
         >
-
-
           <Card sx={{ maxWidth: 345 }}>
             {removeMode &&
               <IconButton
@@ -50,11 +46,6 @@ export default function MediaCard({ item, removeMode, handleDelete }: { item: It
                   </Typography>
                   <Stack
                     spacing={1}
-                    sx={
-                      {
-                        // display: "flex",
-                      }
-                    }
                   >
                     <Box component='div'>Price: {item.price}</Box>
                     <Box component='div'>Stock: {item.stock}</Box>

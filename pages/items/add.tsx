@@ -1,44 +1,20 @@
 // Form to add a new item
 import React, { Children } from "react";
 import {
-  Box,
   Button,
-  Card,
-  CardActionArea,
-  CardActions,
-  CardContent,
-  CardMedia,
   Container,
-  Divider,
-  Drawer,
   Grid,
-  List,
-  ListItem,
-  ListItemButton,
-  ListItemIcon,
-  ListItemText,
-  MenuItem,
   Paper,
-  Stack,
-  Toolbar,
-  Typography,
-  // TextField,
 } from "@mui/material";
 
 import { Item } from "../../pages/index";
-import { Block } from "@mui/icons-material";
 import Sidebar from "../../components/Sidebar";
 import SearchBar from "../../components/SearchBar";
-import Card2 from "../../components/Card";
-import Grid2 from "@mui/material/Unstable_Grid2"; // Grid version 2
-
-import Link from "next/link";
 import { useRouter } from "next/router";
-import { useFormik, Formik, Form, Field, ErrorMessage } from "formik";
+import { Formik, Form, Field} from "formik";
 import * as Yup from "yup";
-import { TextField, Select } from "formik-material-ui";
+import { TextField} from "formik-material-ui";
 import { Category } from "../../pages/index";
-import { Option } from "@mui/joy";
 
 // get categories from server
 export const getServerSideProps = async () => {
@@ -151,14 +127,8 @@ export default function AddItem({ categories, endpoint, initialValues }: { categ
                     <Field
                       component='select'
                       name="category"
-                      // value={categoryValue}
                       onChange={handleChange}
                       onBlur={handleBlur}
-                    // onChange={(e) => {
-                    //   setCategoryValue(e.target.value);
-                    //   console.log(e.target.value);
-                    // }}
-                    // onBlur={(e) => setCategoryValue(e.target.value)}
                     >
                       <Field
                         component='option'

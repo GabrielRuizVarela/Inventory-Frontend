@@ -1,16 +1,23 @@
-import * as React from 'react';
-import Box from '@mui/material/Box';
-import Alert from '@mui/material/Alert';
-import IconButton from '@mui/material/IconButton';
-import Collapse from '@mui/material/Collapse';
-import Button from '@mui/material/Button';
-import CloseIcon from '@mui/icons-material/Close';
+import * as React from "react";
+import Box from "@mui/material/Box";
+import Alert from "@mui/material/Alert";
+import IconButton from "@mui/material/IconButton";
+import Collapse from "@mui/material/Collapse";
+import CloseIcon from "@mui/icons-material/Close";
 
-export default function TransitionAlerts({ showAlert, setShowAlert, severity, msg }: { showAlert: boolean, setShowAlert: (showAlert: boolean) => void, severity: 'success' | 'info' | 'warning' | 'error', msg: string }) {
-  // const [open, setOpen] = React.useState(showAlert);
-
+export default function TransitionAlerts({
+  showAlert,
+  setShowAlert,
+  severity,
+  msg,
+}: {
+  showAlert: boolean;
+  setShowAlert: (showAlert: boolean) => void;
+  severity: "success" | "info" | "warning" | "error";
+  msg: string;
+}) {
   return (
-    <Box sx={{ width: '100%' }}>
+    <Box sx={{ width: "100%" }}>
       <Collapse in={showAlert}>
         <Alert
           severity={severity}
@@ -31,15 +38,6 @@ export default function TransitionAlerts({ showAlert, setShowAlert, severity, ms
           {msg}
         </Alert>
       </Collapse>
-      {/* <Button
-        disabled={open}
-        variant="outlined"
-        onClick={() => {
-          setOpen(true);
-        }}
-      >
-        Re-open
-      </Button> */}
     </Box>
   );
 }

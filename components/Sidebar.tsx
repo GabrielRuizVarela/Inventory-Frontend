@@ -1,44 +1,30 @@
 import * as React from "react";
-import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import CssBaseline from "@mui/material/CssBaseline";
 import Divider from "@mui/material/Divider";
 import Drawer from "@mui/material/Drawer";
 import IconButton from "@mui/material/IconButton";
-import InboxIcon from "@mui/icons-material/MoveToInbox";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
-import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
-import MailIcon from "@mui/icons-material/Mail";
-import MenuIcon from "@mui/icons-material/Menu";
 import Toolbar from "@mui/material/Toolbar";
-import Typography from "@mui/material/Typography";
-import SearchAppBar from "./SearchBar";
 import { Category } from "../pages";
-import Link from "next/link";
-import { Add, ContactPageOutlined, Remove, RemoveCircleOutline, Router } from "@mui/icons-material";
+import { Add, Menu, RemoveCircleOutline } from "@mui/icons-material";
 import Alert from "./Alert";
-import { useFormik, Formik, Form, Field, ErrorMessage } from "formik";
-import { Button, FormGroup, TextField, Tooltip } from "@mui/material";
+import { Formik, Form } from "formik";
+import { Button, TextField, Tooltip, Typography } from "@mui/material";
 import * as Yup from "yup";
 import router from "next/router";
 const drawerWidth = 240;
 
 interface Props {
-  /**
-   * Injected by the documentation to work in an iframe.
-   * You won't need it on your project.
-   */
-  window?: () => Window;
   categories: Category[] | [];
   handleSidebarClick: (category: Category) => void;
   removeMode: boolean;
 }
 
 export default function ResponsiveDrawer(props: Props) {
-  const { window } = props;
   const { categories: serverCategories } = props;
   const [categories, setCategories] = React.useState<Category[]>([]);
   const { removeMode } = props;
@@ -96,7 +82,22 @@ export default function ResponsiveDrawer(props: Props) {
 
   const drawer = (
     <div>
-      <Toolbar />
+      <Toolbar>
+        <Typography variant="h6" noWrap={true} component="div">
+          <IconButton
+            color="inherit"
+            aria-label="open drawer"
+            edge="start"
+            onClick={handleDrawerToggle}
+            sx={{ mr: 2, ...(mobileOpen && { display: "none" }) }}
+          >
+            <Menu />
+          </IconButton>
+
+          Categories
+        </Typography>
+
+      </Toolbar>
       <Divider />
       <List>
         <ListItem disablePadding={true}>
@@ -115,13 +116,6 @@ export default function ResponsiveDrawer(props: Props) {
               secondaryAction={
                 removeMode && (
                   <>
-                    {/* <Button
-                      title="Edit"
-                      variant="outlined"
-                      size="small"
-                      color="inherit"
-                      onClick={() => handleEditCategoryButton(item._id)}
-                    >edit</Button> */}
                     <IconButton
                       sx={{ zIndex: 100, padding: 0.1 }}
                       onClick={() => handleDeleteCategory(item._id)}
@@ -174,10 +168,8 @@ export default function ResponsiveDrawer(props: Props) {
                   .required("Required"),
               })}
               onSubmit={(values, { setSubmitting }) => {
-                // console.log("submitting")
                 setTimeout(() => {
                   setSubmitting(true);
-                  // alert(JSON.stringify(values, null, 2));
                   fetch("http://localhost:5050/categories/create", {
                     method: "POST",
                     headers: {
@@ -236,7 +228,6 @@ export default function ResponsiveDrawer(props: Props) {
                   onSubmit={handleSubmit}
                   style={{
                     display: "grid",
-                    // gap: "1rem",
                     alignItems: "center",
                     justifyContent: "center",
                     width: "100%",
@@ -250,7 +241,6 @@ export default function ResponsiveDrawer(props: Props) {
                       label="Name"
                       type="text"
                       name="name"
-                      // variant="filled"
                       size="small"
                       onChange={handleChange}
                       onBlur={handleBlur}
@@ -270,7 +260,6 @@ export default function ResponsiveDrawer(props: Props) {
                     />
                   </Box>
                   <Button
-                    // center the button
                     sx={{ width: "25ch" }}
                     type="submit" variant="contained">
                     Add
@@ -292,9 +281,6 @@ export default function ResponsiveDrawer(props: Props) {
     </div >
   );
 
-  const container =
-    window !== undefined ? () => window().document.body : undefined;
-
   return (
     <Box sx={{ display: "flex" }}>
       <CssBaseline />
@@ -305,6 +291,7 @@ export default function ResponsiveDrawer(props: Props) {
       >
         <Drawer
           variant="permanent"
+          
           sx={{
             display: { xs: "none", sm: "block" },
             "& .MuiDrawer-paper": {

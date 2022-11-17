@@ -1,11 +1,10 @@
 import React from "react";
-import { Category, getServerSideProps, Item } from "../index";
+import { Category, Item } from "../index";
 import AspectRatio from "@mui/joy/AspectRatio";
 import Card from "@mui/joy/Card";
 import CardOverflow from "@mui/joy/CardOverflow";
 import Divider from "@mui/joy/Divider";
 import Typography from "@mui/joy/Typography";
-import { Box } from "@mui/joy";
 import SearchBar from "../../components/SearchBar";
 import Sidebar from "../../components/Sidebar";
 import { Container } from "@mui/system";
