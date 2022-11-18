@@ -1,6 +1,7 @@
 import Head from "next/head";
 import { Suspense } from "react";
-
+import SearchBar2 from "./SearchBar2";
+import Sidebar2 from "./SideBar2";
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <>

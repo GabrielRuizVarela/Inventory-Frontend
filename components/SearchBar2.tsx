@@ -67,16 +67,37 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
+const StyledBox = styled(Box)<{ opendrawer: string }>(({ theme, opendrawer }) => ({
+  transition: theme.transitions.create(["margin", "width"], {
+    easing: theme.transitions.easing.sharp,
+    duration: theme.transitions.duration.leavingScreen,
+  }),
+  ...(opendrawer === "true" && {
+    // width: `calc(100%)`,
+    //add breakpoint only for sm and below
+    [theme.breakpoints.up("md")]: {
+      marginLeft: `${drawerWidth / 2}px`,
+      transition: theme.transitions.create(["margin", "width"], {
+        easing: theme.transitions.easing.easeOut,
+        duration: theme.transitions.duration.enteringScreen,
+      }),
+    }
+  }),
+
+}));
+
+
+
 export default function SearchAppBar() {
   const theme = useTheme();
-  const { view, setView, isDetailPage, isRemoveMode, setIsRemoveMode } =
+  const { view, setView, isDetailPage, isRemoveMode, setIsRemoveMode, setOpenSidebar, openSidebar } =
     useContext(AppContext);
   const colorMode = useContext(ColorModeContext);
   return (
     <Box
       sx={{ height: 60, width: "100vw", p: 0, m: 0, justifyContent: "center" }}
     >
-      <AppBar position="static" color={"primary"} sx={{ px: { xl: 16 } }}>
+      <AppBar position="static" color={'primary'} sx={{ px: { xl: 16 } }}>
         <Toolbar>
           {/* 1/3 */}
           <IconButton
@@ -85,14 +106,16 @@ export default function SearchAppBar() {
             color="inherit"
             aria-label="open drawer"
             sx={{ mr: 2, width: "min-content" }}
+            onClick={() => setOpenSidebar(!openSidebar)}
           >
             <MenuIcon />
           </IconButton>
           {/* 2/3 */}
-          <Typography
-            variant="h6"
-            noWrap={true}
-            component="div"
+          <StyledBox
+            opendrawer={openSidebar.toString()}
+            // variant="h6"
+            // noWrap={true}
+            // component="div"
             sx={{ flexGrow: 1 }}
           >
             <Stack direction={"row"}>
@@ -129,7 +152,7 @@ export default function SearchAppBar() {
                 </Tooltip>
               )}
             </Stack>
-          </Typography>
+          </StyledBox>
           {/* 3/3 */}
           <Stack direction='row'>
             {isDetailPage ? null : (

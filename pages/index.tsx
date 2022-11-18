@@ -23,14 +23,15 @@ import Grid2 from "@mui/material/Unstable_Grid2"; // Grid version 2
 import Table from "../components/Table";
 import Link from "next/link";
 import SearchBar2 from "../components/SearchBar2";
+import Sidebar2 from "../components/SideBar2";
 
 // fetch from serverside
 export async function getServerSideProps() {
   const res = await fetch("http://localhost:5050/items/");
   const res2 = await fetch("http://localhost:5050/categories/");
-  // console.log(res);
   const data = await res.json();
   const data2 = await res2.json();
+  // console.log(data2);
   return {
     props: {
       serverItems: data,
@@ -62,46 +63,46 @@ export default function Home({
   serverItems,
   serverCategories: serverCategories,
 }: { serverItems: Item[]; serverCategories: Category[] }) {
-  const [items, setItems] = React.useState<Item[] | null>(null);
-  const [categories, setCategorys] = React.useState<Category[] | []>([]);
-  const [activeCategory, setActiveCategory] = React.useState<string>('All');
-  const [view, setView] = React.useState("grid");
-  const [removeMode, setRemoveMode] = React.useState(false);
-  useEffect(() => {
-    setItems(serverItems);
-    setCategorys([
-      ...serverCategories,
-    ]);
-  }, [serverCategories, serverItems]);
-  const handleSidebarClick = (item: Category) => {
-    setActiveCategory(item.name);
-    if (item._id === "all") {
-      setItems(serverItems);
-    } else {
-      const filteredData = serverItems.filter(
-        (item2: Item) => item2.category._id === item._id,
-      );
-      setItems(filteredData);
-    }
-  };
-  const handleSetView = (view: string) => {
-    setView(view);
-  };
-  const handleRemoveMode = () => {
-    setRemoveMode(!removeMode);
-  }
-  const handleDelete = (id: string) => {
-    fetch(`http://localhost:5050/items/${id}/delete`, {
-      method: "DELETE",
-    }).then((res) => {
-      if (res.status === 200) {
-        const filteredData = items?.filter((item: Item) => item._id !== id);
-        setItems(filteredData || []);
-      }
-    }
-    );
-  };
-
+  // const [items, setItems] = React.useState<Item[] | null>(null);
+  // const [categories, setCategorys] = React.useState<Category[] | []>([]);
+  // const [activeCategory, setActiveCategory] = React.useState<string>('All');
+  // const [view, setView] = React.useState("grid");
+  // const [removeMode, setRemoveMode] = React.useState(false);
+  // useEffect(() => {
+  //   setItems(serverItems);
+  //   setCategorys([
+  //     ...serverCategories,
+  //   ]);
+  // }, [serverCategories, serverItems]);
+  // const handleSidebarClick = (item: Category) => {
+  //   setActiveCategory(item.name);
+  //   if (item._id === "all") {
+  //     setItems(serverItems);
+  //   } else {
+  //     const filteredData = serverItems.filter(
+  //       (item2: Item) => item2.category._id === item._id,
+  //     );
+  //     setItems(filteredData);
+  //   }
+  // };
+  // const handleSetView = (view: string) => {
+  //   setView(view);
+  // };
+  // const handleRemoveMode = () => {
+  //   setRemoveMode(!removeMode);
+  // }
+  // const handleDelete = (id: string) => {
+  //   fetch(`http://localhost:5050/items/${id}/delete`, {
+  //     method: "DELETE",
+  //   }).then((res) => {
+  //     if (res.status === 200) {
+  //       const filteredData = items?.filter((item: Item) => item._id !== id);
+  //       setItems(filteredData || []);
+  //     }
+  //   }
+  //   );
+  // };
+  // @refresh reset
   return (
     <Box className={styles.container} sx={{ width: '100vw' }}>
       <Head>
@@ -116,6 +117,13 @@ export default function Home({
         removeMode={removeMode}
       /> */}
       <SearchBar2 />
+      <Sidebar2 categories={serverCategories} />
+      <Box>
+
+        <main>
+
+        </main>
+      </Box>
       {/* <SearchBar setView={handleSetView} detail={false} handleRemoveMode={handleRemoveMode} removeMode={removeMode} tittle={activeCategory} /> */}
       {/* <main className={styles.main}>
         {view === "grid" ? (

@@ -6,7 +6,7 @@ import { createContext, useMemo, useState } from "react";
 
 const theme = createTheme({
   palette: {
-    mode: "dark",
+    // mode: "dark",
     primary: {
       main: "#fff1f0",
       light: "#ff7961",
@@ -14,10 +14,11 @@ const theme = createTheme({
     },
 
     secondary: {
-      main: "#3ea6ff",
-      light: "#72d1ff",
-      dark: "#007ac1",
+      main: "#020f1a",
+      light: "#5f6d75",
+      dark: "#030303",
     },
+
   },
 
 });
@@ -30,12 +31,17 @@ export const AppContext = createContext({
   setIsDetailPage: (isDetailPage: boolean) => { },
   isRemoveMode: false,
   setIsRemoveMode: (removeMode: boolean) => { },
+  openSidebar: false,
+  setOpenSidebar: (openSidebar: boolean) => { },
 });
 export default function App({ Component, pageProps }: AppProps) {
+  // SearchBar
   const [mode, setMode] = useState<'light' | 'dark'>('light');
   const [view, setView] = useState('grid');
   const [isDetailPage, setIsDetailPage] = useState(false);
   const [isRemoveMode, setIsRemoveMode] = useState(false);
+  // Sidebar
+  const [openSidebar, setOpenSidebar] = useState(true);
   const colorMode = useMemo(
     () => ({
       toggleColorMode: () => {
@@ -49,17 +55,30 @@ export default function App({ Component, pageProps }: AppProps) {
       createTheme({
         palette: {
           mode,
-          primary: {
-            main: "#fff1f0",
-            light: "#ff7961",
-            dark: "#ba000d",
-          },
+          ...(mode === 'light') ? {
+            primary: {
+              main: "#fff1f0",
+              light: "#ff7961",
+              dark: "#ba000d",
+            },
 
-          secondary: {
-            main: "#3ea6ff",
-            light: "#72d1ff",
-            dark: "#007ac1",
-          },
+            secondary: {
+              main: "#3ea6ff",
+              light: "#72d1ff",
+              dark: "#007ac1",
+            },
+          } : {
+            primary: {
+              main: "#020f1a",
+              light: "#5f6d75",
+              dark: "#030303",
+            },
+            secondary: {
+              main: "#3ea6ff",
+              light: "#72d1ff",
+              dark: "#007ac1",
+            },
+          }
         },
       }),
     [mode],
@@ -72,8 +91,10 @@ export default function App({ Component, pageProps }: AppProps) {
       setIsDetailPage,
       isRemoveMode,
       setIsRemoveMode,
+      openSidebar,
+      setOpenSidebar,
     }),
-    [view, isDetailPage, isRemoveMode],
+    [view, isDetailPage, isRemoveMode, openSidebar],
   );
   return (
     <ColorModeContext.Provider value={colorMode}>
