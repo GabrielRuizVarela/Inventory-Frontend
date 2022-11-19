@@ -1,27 +1,27 @@
 import "../styles/globals.css";
 import type { AppProps } from "next/app";
 import Layout from "../components/Layout";
-import { createTheme, ThemeProvider } from "@mui/material";
+import { createTheme, CssBaseline, ThemeProvider } from "@mui/material";
 import { createContext, useMemo, useState } from "react";
+import router from "next/router";
 
-const theme = createTheme({
-  palette: {
-    // mode: "dark",
-    primary: {
-      main: "#fff1f0",
-      light: "#ff7961",
-      dark: "#ba000d",
-    },
+// const theme = createTheme({
+//   palette: {
+//     // mode: "dark",
+//     primary: {
+//       main: "#fff1f0",
+//       light: "#ff7961",
+//       dark: "#ba000d",
+//     },
 
-    secondary: {
-      main: "#020f1a",
-      light: "#5f6d75",
-      dark: "#030303",
-    },
+//     secondary: {
+//       main: "#020f1a",
+//       light: "#e8f6ff",
+//       dark: "#030303",
+//     },
 
-  },
-
-});
+//   },
+// });
 
 export const ColorModeContext = createContext({ toggleColorMode: () => { } });
 export const AppContext = createContext({
@@ -33,7 +33,17 @@ export const AppContext = createContext({
   setIsRemoveMode: (removeMode: boolean) => { },
   openSidebar: false,
   setOpenSidebar: (openSidebar: boolean) => { },
+  handleDeleteCategory: (id: string) => { },
+  showAlert: false,
+  setShowAlert: (showAlert: boolean) => { },
+  alertMessage: "",
+  setAlertMessage: (alertMessage: string) => { },
+  alertSeverity: "success" as "success" | "error" | "info" | "warning",
+  setAlertSeverity: (severity: "success" | "error" | "warning" | "info") => { },
+  isAddCategory: false,
+  setIsAddCategory: (isAddCategory: boolean) => { },
 });
+
 export default function App({ Component, pageProps }: AppProps) {
   // SearchBar
   const [mode, setMode] = useState<'light' | 'dark'>('light');
@@ -42,6 +52,42 @@ export default function App({ Component, pageProps }: AppProps) {
   const [isRemoveMode, setIsRemoveMode] = useState(false);
   // Sidebar
   const [openSidebar, setOpenSidebar] = useState(true);
+  const [showAlert, setShowAlert] = useState(false);
+  const [alertMessage, setAlertMessage] = useState('');
+  const [alertSeverity, setAlertSeverity] = useState<'success' | 'error' | 'info' | 'warning'>('success');
+  const [isAddCategory, setIsAddCategory] = useState(false);
+  const handleDeleteCategory = (id: string) => {
+    fetch(`http://localhost:5050/categories/${id}/delete`, {
+      method: "DELETE",
+      headers: {
+        cors: "no-cors",
+      },
+    }).then((res) => {
+      if (res.ok) {
+        // setCategories(categories.filter((category) => category._id !== id));
+        setShowAlert(true);
+        // timeout to hide the alert
+        setTimeout(() => {
+          setShowAlert(false);
+        }, 3000);
+        setAlertSeverity("success");
+        setAlertMessage("Category deleted successfully");
+        router.push("/");
+      }
+      // if response status is 422, then the item is not deleted
+      if (res.status === 422) {
+        setShowAlert(true);
+        setTimeout(() => {
+          setShowAlert(false);
+        }, 3000);
+        setAlertSeverity("error");
+        setAlertMessage(
+          "Category not deleted, check if there are any items in this category",
+        );
+      }
+    });
+  };
+
   const colorMode = useMemo(
     () => ({
       toggleColorMode: () => {
@@ -56,25 +102,26 @@ export default function App({ Component, pageProps }: AppProps) {
         palette: {
           mode,
           ...(mode === 'light') ? {
-            primary: {
+            main: {
               main: "#fff1f0",
               light: "#ff7961",
               dark: "#ba000d",
+              contrastText: "#000000",
             },
-
             secondary: {
-              main: "#3ea6ff",
+              main: "#0a2a46",
               light: "#72d1ff",
               dark: "#007ac1",
             },
           } : {
-            primary: {
-              main: "#020f1a",
-              light: "#5f6d75",
+            main: {
+              main: "#0a2a46",
+              light: "#295f7e",
               dark: "#030303",
+              contrastText: "#ffffff",
             },
             secondary: {
-              main: "#3ea6ff",
+              main: "#b4c6d6",
               light: "#72d1ff",
               dark: "#007ac1",
             },
@@ -93,14 +140,24 @@ export default function App({ Component, pageProps }: AppProps) {
       setIsRemoveMode,
       openSidebar,
       setOpenSidebar,
+      handleDeleteCategory,
+      showAlert,
+      setShowAlert,
+      alertMessage,
+      setAlertMessage,
+      alertSeverity,
+      setAlertSeverity,
+      isAddCategory,
+      setIsAddCategory,
     }),
-    [view, isDetailPage, isRemoveMode, openSidebar],
+    [view, isDetailPage, isRemoveMode, openSidebar, showAlert, alertMessage, alertSeverity, isAddCategory],
   );
   return (
     <ColorModeContext.Provider value={colorMode}>
       <AppContext.Provider value={appContext}>
         <ThemeProvider theme={theme}>
           <Layout>
+            <CssBaseline />
             <Component {...pageProps} />
           </Layout>
         </ThemeProvider>
