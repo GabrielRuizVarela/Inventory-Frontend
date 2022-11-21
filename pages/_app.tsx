@@ -52,6 +52,7 @@ export default function App({ Component, pageProps }: AppProps) {
 	const [view, setView] = useState("grid");
 	const [isDetailPage, setIsDetailPage] = useState(false);
 	const [isRemoveMode, setIsRemoveMode] = useState(false);
+  const [searchValue, setSearchValue] = useState("");
 	// Sidebar
 	const [openSidebar, setOpenSidebar] = useState(true);
 	const [openMobileSidebar, setOpenMobileSidebar] = useState(false);

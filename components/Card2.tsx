@@ -4,7 +4,7 @@ import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import { Item } from "../pages/index";
-import { Box, CardActionArea, IconButton, Stack } from "@mui/material";
+import { Box, CardActionArea, Divider, IconButton, Stack } from "@mui/material";
 import RemoveCircleIcon from "@mui/icons-material/RemoveCircle";
 import Router from "next/router";
 import { AppContext } from "../pages/_app";
@@ -32,15 +32,15 @@ export default function MediaCard({
 					component="div"
 					sx={{
 						position: "relative",
+						"&:hover": {
+							transform: "scale(1.05)",
+							transition: "transform 0.5s",
+						},
 					}}
 				>
 					<Card
 						sx={{
 							maxWidth: { maxWidth },
-							"&:hover": {
-								transform: "scale(1.05)",
-								transition: "transform 0.5s",
-							},
 						}}
 						onMouseOver={() => setIsHovering(true)}
 						onMouseOut={() => setIsHovering(false)}
@@ -67,6 +67,7 @@ export default function MediaCard({
 									minHeight: "240px",
 								}}
 							/>
+							<Divider />
 							<CardContent>
 								<Box
 									sx={{

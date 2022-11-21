@@ -135,12 +135,13 @@ export default function OverflowCard({
 								color="main"
 								aria-label="edit"
 								sx={{ position: "absolute", top: 10, right: 10 }}
+                onClick={handleEditClick}
 							>
 								Edit
 							</Fab>
 						</Box>
 						{/* <ItemCard
-							item={item[0]}
+							item={item}
 							categories={categories}
 							handleEditClick={handleEditClick}
 						/> */}

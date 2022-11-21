@@ -4,7 +4,7 @@ import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import { Item } from "../pages/index";
-import { Box, CardActionArea, IconButton, Stack } from "@mui/material";
+import { Box, CardActionArea, Divider, IconButton, Stack } from "@mui/material";
 import RemoveCircleIcon from "@mui/icons-material/RemoveCircle";
 import Router from "next/router";
 
@@ -51,6 +51,7 @@ export default function MediaCard({
 							/>
 							<CardContent>
 								<Box
+									component="div"
 									sx={{
 										display: "flex",
 										justifyContent: "space-between",

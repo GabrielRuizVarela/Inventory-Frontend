@@ -174,12 +174,8 @@ export default function Home({
 							))}
 						</Grid2>
 					) : (
-						<Container sx={{ marginTop: 12 }}>
-							{/* <Table
-							items={items || []}
-							removeMode={removeMode}
-							handleDelete={handleDelete}
-						/> */}
+						<Container sx={{ marginTop: 4 }}>
+							<Table items={serverItems} />
 						</Container>
 					)}
 				</StyledBox>
