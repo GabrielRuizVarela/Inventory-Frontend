@@ -26,7 +26,10 @@ export const getServerSideProps = async (context: any) => {
 	const data2 = await res2.json();
 
 	return {
-		props: { item: data.filter((i) => i._id === id)[0], categories: data2 },
+		props: {
+			item: data.filter((i: Item) => i._id === id)[0],
+			categories: data2,
+		},
 	};
 };
 
