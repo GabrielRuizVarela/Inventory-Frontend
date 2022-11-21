@@ -65,7 +65,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 	},
 }));
 
-const StyledBox = styled(Box)<{ opendrawer: string }>(
+export const StyledBox = styled(Box)<{ opendrawer: string }>(
 	({ theme, opendrawer }) => ({
 		transition: theme.transitions.create(["margin", "width"], {
 			easing: theme.transitions.easing.sharp,
@@ -93,6 +93,8 @@ export default function SearchAppBar() {
 		setIsRemoveMode,
 		setOpenSidebar,
 		openSidebar,
+    openMobileSidebar,
+    setOpenMobileSidebar,
 	} = useContext(AppContext);
 	const colorMode = useContext(ColorModeContext);
 	return (
@@ -124,8 +126,26 @@ export default function SearchAppBar() {
 						edge="start"
 						color="inherit"
 						aria-label="open drawer"
-						sx={{ mr: 2, width: "min-content" }}
+						sx={{
+							mr: 2,
+							width: "min-content",
+							display: { xs: "none", md: "block" },
+						}}
 						onClick={() => setOpenSidebar(!openSidebar)}
+					>
+						<MenuIcon />
+					</IconButton>
+					<IconButton
+						size="large"
+						edge="start"
+						color="inherit"
+						aria-label="open drawer"
+						sx={{
+							mr: 2,
+							width: "min-content",
+							display: { xs: "block", md: "none" },
+						}}
+						onClick={() => setOpenMobileSidebar(!openMobileSidebar)}
 					>
 						<MenuIcon />
 					</IconButton>

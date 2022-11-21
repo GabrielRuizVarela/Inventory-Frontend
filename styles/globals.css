@@ -6,6 +6,10 @@ html,body {
 body {
   /* margin-left: 240px; */
 }
+a{
+  text-decoration: none;
+  color: inherit;
+}
 
 /* html,
 body {

@@ -34,6 +34,7 @@ import Alert from "./Alert";
 import { Form, Formik } from "formik";
 import * as Yup from "yup";
 import Router from "next/router";
+import Link from "next/link";
 
 let drawerWidth = 240;
 interface AppBarProps extends MuiAppBarProps {
@@ -76,25 +77,32 @@ const DrawerList = ({
 }) => {
 	return (
 		<List>
-			{listItems?.map((item, index) => (
-				<ListItem
-					button={true}
-					key={item._id}
-					secondaryAction={
-						isRemoveMode && (
-							<>
-								<IconButton
-									sx={{ zIndex: 100, padding: 0.1 }}
-									onClick={() => handleDeleteCategory(item._id)}
-								>
-									<RemoveCircleOutline color="warning" />
-								</IconButton>
-							</>
-						)
-					}
-				>
-					<ListItemText primary={item.name} />
+			<Link href={"/"}>
+				<ListItem button={true}>
+					<ListItemText primary="All" />
 				</ListItem>
+			</Link>
+			{listItems?.map((item, index) => (
+				<Link href={`/categories/${item._id}`} key={item._id}>
+					<ListItem
+						button={true}
+						key={item._id}
+						secondaryAction={
+							isRemoveMode && (
+								<>
+									<IconButton
+										sx={{ zIndex: 100, padding: 0.1 }}
+										onClick={() => handleDeleteCategory(item._id)}
+									>
+										<RemoveCircleOutline color="warning" />
+									</IconButton>
+								</>
+							)
+						}
+					>
+						<ListItemText primary={item.name} />
+					</ListItem>
+				</Link>
 			))}
 		</List>
 	);
@@ -245,11 +253,13 @@ interface Props {
 }
 
 export default function Sidebar2({ categories }: Props) {
-	console.log(categories);
+	// console.log(categories);
 	const theme = useTheme();
 	const {
 		openSidebar,
 		setOpenSidebar,
+		openMobileSidebar,
+		setOpenMobileSidebar,
 		isRemoveMode,
 		handleDeleteCategory,
 		showAlert,
@@ -275,14 +285,19 @@ export default function Sidebar2({ categories }: Props) {
 							boxSizing: "border-box",
 							backgroundColor: theme.palette.main.main,
 						},
-						display: { sm: "none", md: "block" },
+						display: { xs: "none", sm: "block" },
 					}}
 					variant="persistent"
 					anchor="left"
 					open={openSidebar}
+					onClose={() => setOpenSidebar(false)}
 				>
 					<DrawerHeader>
-						<IconButton onClick={() => setOpenSidebar(false)}>
+						<IconButton
+							onClick={() => {
+								setOpenSidebar(false);
+							}}
+						>
 							{theme.direction === "ltr" ? (
 								<ChevronLeftIcon />
 							) : (
@@ -332,6 +347,7 @@ export default function Sidebar2({ categories }: Props) {
 						msg={alertMessage}
 					/>
 				</Drawer>
+				{/* Mobile Sidebar */}
 				<Drawer
 					sx={{
 						width: drawerWidth,
@@ -339,15 +355,16 @@ export default function Sidebar2({ categories }: Props) {
 						"& .MuiDrawer-paper": {
 							width: drawerWidth,
 							boxSizing: "border-box",
+							backgroundColor: theme.palette.main.main,
 						},
-						display: { sm: "block", md: "none" },
+						display: { xs: "block", sm: "none" },
 					}}
 					variant="temporary"
 					anchor="left"
-					open={openSidebar}
+					open={openMobileSidebar}
 				>
 					<DrawerHeader>
-						<IconButton onClick={() => setOpenSidebar(false)}>
+						<IconButton onClick={() => setOpenMobileSidebar(false)}>
 							{theme.direction === "ltr" ? (
 								<ChevronLeftIcon />
 							) : (
