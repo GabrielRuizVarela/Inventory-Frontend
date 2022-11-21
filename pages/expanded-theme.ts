@@ -14,6 +14,9 @@ declare module '@mui/material/AppBar' {
   interface AppBarPropsColorOverrides {
     main: true;
   }
+  interface FabPropsColorOverrides {
+    main: true;
+  }
 }
 
 import '@material-ui/core/styles';
