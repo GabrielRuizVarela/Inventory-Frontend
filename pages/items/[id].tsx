@@ -11,9 +11,9 @@ import { Container } from "@mui/system";
 import { Box, Paper, useTheme } from "@mui/material";
 import AddItem from "./add";
 import Fab from "@mui/material/Fab";
-import SearchBar2 from "../../components/SearchBar2";
+import SearchBar2 from "../../components/SearchBar";
 import { StyledBox } from "../index";
-import Sidebar2 from "../../components/SideBar2";
+import Sidebar2 from "../../components/Sidebar";
 import Card2 from "../../components/Card2";
 import { Typography } from "@mui/joy";
 import { AppContext } from "../_app";
@@ -135,7 +135,7 @@ export default function OverflowCard({
 								color="main"
 								aria-label="edit"
 								sx={{ position: "absolute", top: 10, right: 10 }}
-                onClick={handleEditClick}
+								onClick={handleEditClick}
 							>
 								Edit
 							</Fab>

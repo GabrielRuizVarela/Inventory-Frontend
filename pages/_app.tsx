@@ -44,6 +44,8 @@ export const AppContext = createContext({
 	setAlertSeverity: (severity: "success" | "error" | "warning" | "info") => {},
 	isAddCategory: false,
 	setIsAddCategory: (isAddCategory: boolean) => {},
+	searchValue: "",
+	setSearchValue: (searchValue: string) => {},
 });
 
 export default function App({ Component, pageProps }: AppProps) {
@@ -52,7 +54,7 @@ export default function App({ Component, pageProps }: AppProps) {
 	const [view, setView] = useState("grid");
 	const [isDetailPage, setIsDetailPage] = useState(false);
 	const [isRemoveMode, setIsRemoveMode] = useState(false);
-  const [searchValue, setSearchValue] = useState("");
+	const [searchValue, setSearchValue] = useState("");
 	// Sidebar
 	const [openSidebar, setOpenSidebar] = useState(true);
 	const [openMobileSidebar, setOpenMobileSidebar] = useState(false);
@@ -159,6 +161,8 @@ export default function App({ Component, pageProps }: AppProps) {
 			setAlertSeverity,
 			isAddCategory,
 			setIsAddCategory,
+			searchValue,
+			setSearchValue,
 		}),
 		[
 			view,
@@ -170,6 +174,7 @@ export default function App({ Component, pageProps }: AppProps) {
 			alertSeverity,
 			isAddCategory,
 			openMobileSidebar,
+			searchValue,
 		],
 	);
 	return (

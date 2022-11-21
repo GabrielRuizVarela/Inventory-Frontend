@@ -1,5 +1,4 @@
 import '@mui/material/styles';
-// import Pallete
 
 declare module '@mui/material/styles' {
   interface Palette {
@@ -14,6 +13,9 @@ declare module '@mui/material/AppBar' {
   interface AppBarPropsColorOverrides {
     main: true;
   }
+}
+
+declare module '@mui/material/Fab' {
   interface FabPropsColorOverrides {
     main: true;
   }

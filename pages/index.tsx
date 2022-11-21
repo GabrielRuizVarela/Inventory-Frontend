@@ -24,8 +24,8 @@ import Card from "../components/Card";
 import Grid2 from "@mui/material/Unstable_Grid2"; // Grid version 2
 import Table from "../components/Table";
 import Link from "next/link";
-import SearchBar2 from "../components/SearchBar2";
-import Sidebar2 from "../components/SideBar2";
+import SearchBar2 from "../components/SearchBar";
+import Sidebar2 from "../components/Sidebar";
 import { AppContext } from "./_app";
 import styled from "@emotion/styled";
 import Card2 from "../components/Card2";
@@ -127,7 +127,8 @@ export default function Home({
 	//   );
 	// };
 	// @refresh reset
-	const { view, isRemoveMode, openSidebar } = useContext(AppContext);
+	const { view, isRemoveMode, openSidebar, searchValue } =
+		useContext(AppContext);
 	const theme = useTheme();
 	return (
 		<>
@@ -154,28 +155,37 @@ export default function Home({
 							columns={{ xs: 4, sm: 8, md: 12 }}
 							justifyContent="center"
 						>
-							{serverItems?.map((item) => (
-								<Grid2
-									xs={"auto"}
-									key={item._id}
-									sx={{
-										display: "flex",
-										// alignItems: "center",
-									}}
-								>
-									<Link
-										href={`/items/${item._id}`}
-										style={{ textDecoration: "none" }}
+							{/* filtar server items, fijarse que contenga a searchValue */}
+							{serverItems
+								?.filter((item) =>
+									item.name.toLowerCase().includes(searchValue.toLowerCase()),
+								)
+								.map((item) => (
+									<Grid2
+										xs={"auto"}
+										key={item._id}
+										sx={{
+											display: "flex",
+											// alignItems: "center",
+										}}
 									>
-										<Card2 maxWidth={300} key={item._id} item={item} />
-										{/* <Card removeMode={false} key={item._id} item={item} /> */}
-									</Link>
-								</Grid2>
-							))}
+										<Link
+											href={`/items/${item._id}`}
+											style={{ textDecoration: "none" }}
+										>
+											<Card2 maxWidth={300} key={item._id} item={item} />
+											{/* <Card removeMode={false} key={item._id} item={item} /> */}
+										</Link>
+									</Grid2>
+								))}
 						</Grid2>
 					) : (
 						<Container sx={{ marginTop: 4 }}>
-							<Table items={serverItems} />
+							<Table
+								items={serverItems.filter((item) =>
+									item.name.toLowerCase().includes(searchValue.toLowerCase()),
+								)}
+							/>
 						</Container>
 					)}
 				</StyledBox>

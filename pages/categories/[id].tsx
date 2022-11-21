@@ -22,8 +22,8 @@ import Card from "../../components/Card";
 import Grid2 from "@mui/material/Unstable_Grid2"; // Grid version 2
 import Table from "../../components/Table";
 import Link from "next/link";
-import SearchBar2 from "../../components/SearchBar2";
-import Sidebar2 from "../../components/SideBar2";
+import SearchBar2 from "../../components/SearchBar";
+import Sidebar2 from "../../components/Sidebar";
 import { AppContext } from "../_app";
 import styled from "@emotion/styled";
 import Card2 from "../../components/Card2";
