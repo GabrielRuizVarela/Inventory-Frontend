@@ -125,7 +125,7 @@ export default function App({ Component, pageProps }: AppProps) {
 						  }
 						: {
 								main: {
-									main: "#081827",
+									main: "#180827",
 									light: "#295f7e",
 									dark: "#030303",
 									contrastText: "#ffffff",
@@ -134,6 +134,10 @@ export default function App({ Component, pageProps }: AppProps) {
 									main: "#b4c6d6",
 									light: "#72d1ff",
 									dark: "#007ac1",
+								},
+								background: {
+									default: "rgb(20, 12, 1)",
+									paper: "#180827",
 								},
 						  }),
 				},
