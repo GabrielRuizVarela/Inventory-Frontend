@@ -14,21 +14,22 @@ import Fab from "@mui/material/Fab";
 import SearchBar2 from "../../components/SearchBar";
 import { StyledBox } from "../index";
 import Sidebar2 from "../../components/Sidebar";
-import Card2 from "../../components/Card2";
+import Card2 from "../../components/Card";
 import { Typography } from "@mui/joy";
 import { AppContext } from "../_app";
 
 export const getServerSideProps = async (context: any) => {
 	const id = context.params.id;
-	const res = await fetch("http://localhost:5050/items/");
-	const data = await res.json();
-	const res2 = await fetch("http://localhost:5050/categories/");
-	const data2 = await res2.json();
-
+	const [res1, res2] = await Promise.all([
+		fetch("http://localhost:5050/items/"),
+		fetch("http://localhost:5050/categories"),
+	]);
+	const item = await res1.json();
+	const categories = await res2.json();
 	return {
 		props: {
-			item: data.filter((i: Item) => i._id === id)[0],
-			categories: data2,
+			item: item.find((item: Item) => item._id === id),
+			categories,
 		},
 	};
 };
@@ -115,19 +116,19 @@ export default function OverflowCard({
 		<>
 			<SearchBar2 />
 			<Sidebar2 categories={categories} />
-			<StyledBox
-				theme={theme}
-				opendrawer={openSidebar.toString()}
-				sx={{ display: "flex", justifyContent: "center", marginTop: 14 }}
-			>
-				{editMode ? (
-					<AddItem
-						endpoint={`http://localhost:5050/items/${item._id}/edit`}
-						initialValues={item}
-						categories={categories}
-					/>
-				) : (
-					<>
+			{editMode ? (
+				<AddItem
+					endpoint={`http://localhost:5050/items/${item._id}/edit`}
+					initialValues={item}
+					categories={categories}
+				/>
+			) : (
+				<>
+					<StyledBox
+						theme={theme}
+						opendrawer={openSidebar.toString()}
+						sx={{ display: "flex", justifyContent: "center", marginTop: 14 }}
+					>
 						<Box position={"relative"}>
 							<Card2 maxWidth={800} item={item} />
 							<Fab
@@ -145,9 +146,9 @@ export default function OverflowCard({
 							categories={categories}
 							handleEditClick={handleEditClick}
 						/> */}
-					</>
-				)}
-			</StyledBox>
+					</StyledBox>
+				</>
+			)}
 		</>
 	);
 }

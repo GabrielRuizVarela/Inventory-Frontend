@@ -1,6 +1,14 @@
 // Form to add a new item
 import React, { Children, useContext } from "react";
-import { Button, Container, Grid, Paper, useTheme } from "@mui/material";
+import {
+	Button,
+	Container,
+	Grid,
+	Paper,
+	useTheme,
+	Select,
+	MenuItem,
+} from "@mui/material";
 
 import { Item, StyledBox } from "../../pages/index";
 import Sidebar from "../../components/Sidebar";
@@ -43,7 +51,7 @@ export default function AddItem({
 				opendrawer={openSidebar.toString()}
 				sx={{ marginTop: 12 }}
 			>
-				<Paper sx={{ p: 4, mx:4 }}>
+				<Paper sx={{ p: 4, mx: 4 }}>
 					<Grid container={true} spacing={2} sx={{ justifyContent: "center" }}>
 						<Grid item={true} xs={12} md={9}>
 							<Formik
@@ -137,13 +145,15 @@ export default function AddItem({
 											onBlur={handleBlur}
 										/>
 										<Field
-											component='select'
-											name="category"
+											component={Select}
+											defaultValue="Choose a category"
+											// component='select'
 											onChange={handleChange}
 											onBlur={handleBlur}
 										>
 											<Field
-												component='option'
+												component={MenuItem}
+												// component='option'
 												value='Choose a category'
 												disabled={true}
 											>
@@ -151,11 +161,14 @@ export default function AddItem({
 											</Field>
 											{categories.map((category, index) => (
 												<Field
-													component='option'
+													component={MenuItem}
+													// component='option'
 													key={category._id}
 													value={category._id}
 													label={category.name}
-												/>
+												>
+													{category.name}
+												</Field>
 											))}
 										</Field>
 										<Button

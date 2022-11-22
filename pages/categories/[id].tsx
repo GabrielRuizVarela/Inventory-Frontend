@@ -26,7 +26,7 @@ import SearchBar2 from "../../components/SearchBar";
 import Sidebar2 from "../../components/Sidebar";
 import { AppContext } from "../_app";
 import styled from "@emotion/styled";
-import Card2 from "../../components/Card2";
+import Card2 from "../../components/Card";
 
 const drawerWidth = 240;
 const StyledBox = styled(Box)<{ opendrawer: string; theme: Theme }>(

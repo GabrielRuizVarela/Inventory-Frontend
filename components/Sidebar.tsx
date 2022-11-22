@@ -285,7 +285,7 @@ export default function Sidebar2({ categories }: Props) {
 							boxSizing: "border-box",
 							backgroundColor: theme.palette.main.main,
 						},
-						display: { xs: "none", sm: "block" },
+						display: { xs: "none", md: "block" },
 					}}
 					variant="persistent"
 					anchor="left"
@@ -357,7 +357,7 @@ export default function Sidebar2({ categories }: Props) {
 							boxSizing: "border-box",
 							backgroundColor: theme.palette.main.main,
 						},
-						display: { xs: "block", sm: "none" },
+						display: { xs: "block", md: "none" },
 					}}
 					variant="temporary"
 					anchor="left"

@@ -58,7 +58,7 @@ export default function DenseTable({ items }: { items: Item[] }) {
 						>
 							<TableCell align="center">{item.name}</TableCell>
 							<TableCell align="center">{item.category.name}</TableCell>
-							<TableCell align="center">{item.price}</TableCell>
+							<TableCell align="center">${item.price}</TableCell>
 							<TableCell align="center">{item.stock}</TableCell>
 							{isRemoveMode && (
 								<TableCell align="center">

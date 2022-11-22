@@ -28,7 +28,7 @@ import SearchBar2 from "../components/SearchBar";
 import Sidebar2 from "../components/Sidebar";
 import { AppContext } from "./_app";
 import styled from "@emotion/styled";
-import Card2 from "../components/Card2";
+import Card2 from "../components/Card";
 
 const drawerWidth = 240;
 export const StyledBox = styled(Box)<{ opendrawer: string; theme: Theme }>(
@@ -169,13 +169,16 @@ export default function Home({
 											// alignItems: "center",
 										}}
 									>
-										<Link
-											href={`/items/${item._id}`}
-											style={{ textDecoration: "none" }}
-										>
+										{isRemoveMode ? (
 											<Card2 maxWidth={300} key={item._id} item={item} />
-											{/* <Card removeMode={false} key={item._id} item={item} /> */}
-										</Link>
+										) : (
+											<Link
+												href={`/items/${item._id}`}
+												style={{ textDecoration: "none" }}
+											>
+												<Card2 maxWidth={300} key={item._id} item={item} />
+											</Link>
+										)}
 									</Grid2>
 								))}
 						</Grid2>
