@@ -5,24 +5,6 @@ import { createTheme, CssBaseline, ThemeProvider } from "@mui/material";
 import { createContext, useMemo, useState } from "react";
 import router from "next/router";
 
-// const theme = createTheme({
-//   palette: {
-//     // mode: "dark",
-//     primary: {
-//       main: "#fff1f0",
-//       light: "#ff7961",
-//       dark: "#ba000d",
-//     },
-
-//     secondary: {
-//       main: "#020f1a",
-//       light: "#e8f6ff",
-//       dark: "#030303",
-//     },
-
-//   },
-// });
-
 export const ColorModeContext = createContext({ toggleColorMode: () => {} });
 export const AppContext = createContext({
 	view: "grid",

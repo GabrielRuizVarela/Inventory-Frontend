@@ -88,7 +88,6 @@ export default function AddItem({
 										)
 											.then(() => {
 												router.push("/");
-												// console.log(values);
 											})
 											.catch((err) => {
 												console.log(err);

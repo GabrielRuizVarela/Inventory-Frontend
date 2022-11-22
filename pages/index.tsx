@@ -31,7 +31,7 @@ export const StyledBox = styled(Box)<{ opendrawer: string; theme: Theme }>(
 	}),
 );
 
-export async function getServerSideProps() {
+export async function getStaticProps() {
 	// const res = await fetch("http://localhost:5050/items/");
 	const res = await fetch(
 		"https://inventory-backend-production.up.railway.app/items/",

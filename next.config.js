@@ -4,7 +4,9 @@ const nextConfig = {
   swcMinify: true,
   images: {
     domains: ['images.unsplash.com']
-  }
+  },
+  basePath: '/Inventory-Frontend',
+
   // images: {
   //   remotePatterns: [{
   //     protocol: 'https:',
