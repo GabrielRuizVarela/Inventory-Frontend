@@ -113,7 +113,7 @@ export default function OverflowCard({
 	const handleEditClick = () => {
 		setEditMode(true);
 	};
-	console.log(item);
+	// console.log(item);
 	return (
 		<>
 			<SearchBar2 />

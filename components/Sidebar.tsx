@@ -153,9 +153,9 @@ const AddForm = ({
 						}),
 					})
 						.then((res) => {
-							console.log(res.status);
+							// console.log(res.status);
 							if (res.status === 422) {
-								console.log("category already exists");
+								// console.log("category already exists");
 								setShowAlert(true);
 								setTimeout(() => {
 									setShowAlert(false);

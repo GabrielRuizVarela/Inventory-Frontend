@@ -37,15 +37,15 @@ export async function getServerSideProps() {
 		"https://inventory-backend-production.up.railway.app/items/",
 	);
 	// const res2 = await fetch("http://localhost:5050/categories/");
-	const res2 = await fetch(
-		"https://inventory-backend-production.up.railway.app/categories/",
-	);
+	// const res2 = await fetch(
+	// 	"https://inventory-backend-production.up.railway.app/categories/",
+	// );
 	const data = await res.json();
-	const data2 = await res2.json();
+	// const data2 = await res2.json();
 	return {
 		props: {
 			serverItems: data,
-			serverCategories: data2,
+			serverCategories: [],
 		},
 	};
 }
