@@ -22,10 +22,10 @@ import { AppContext } from "../_app";
 
 // get categories from server
 export const getServerSideProps = async () => {
-	// const res = await fetch("http://localhost:5050/categories/");
-	const res = await fetch(
-		"https://inventory-backend-production.up.railway.app/categories/",
-	);
+	const res = await fetch(`${process.env.API_URL}/api/categories`);
+	// const res = await fetch(
+	// 	"https://inventory-backend-production.up.railway.app/categories/",
+	// );
 	const data = await res.json();
 
 	return {

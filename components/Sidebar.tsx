@@ -83,26 +83,26 @@ const DrawerList = ({
 				</ListItem>
 			</Link>
 			{listItems?.map((item, index) => (
-				<Link href={`/categories/${item._id}`} key={item._id}>
-					<ListItem
-						button={true}
-						key={item._id}
-						secondaryAction={
-							isRemoveMode && (
-								<>
-									<IconButton
-										sx={{ zIndex: 100, padding: 0.1 }}
-										onClick={() => handleDeleteCategory(item._id)}
-									>
-										<RemoveCircleOutline color="warning" />
-									</IconButton>
-								</>
-							)
-						}
-					>
+				<ListItem
+					button={false}
+					key={item._id}
+					secondaryAction={
+						isRemoveMode && (
+							<>
+								<IconButton
+									sx={{ zIndex: 100, padding: 0.1 }}
+									onClick={() => handleDeleteCategory(item._id)}
+								>
+									<RemoveCircleOutline color="warning" />
+								</IconButton>
+							</>
+						)
+					}
+				>
+					<Link href={`/categories/${item._id}`} key={item._id}>
 						<ListItemText primary={item.name} />
-					</ListItem>
-				</Link>
+					</Link>
+				</ListItem>
 			))}
 		</List>
 	);
@@ -141,17 +141,20 @@ const AddForm = ({
 				setTimeout(() => {
 					setSubmitting(true);
 					// fetch("http://localhost:5050/categories/create", {
-            fetch("https://inventory-backend-production.up.railway.app/categories/create", {
-						method: "POST",
-						headers: {
-							cors: "no-cors",
-							"Content-Type": "application/json",
+					fetch(
+						"https://inventory-backend-production.up.railway.app/categories/create",
+						{
+							method: "POST",
+							headers: {
+								cors: "no-cors",
+								"Content-Type": "application/json",
+							},
+							body: JSON.stringify({
+								name: values.name,
+								description: values.description,
+							}),
 						},
-						body: JSON.stringify({
-							name: values.name,
-							description: values.description,
-						}),
-					})
+					)
 						.then((res) => {
 							// console.log(res.status);
 							if (res.status === 422) {
