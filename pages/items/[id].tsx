@@ -119,11 +119,7 @@ export default function OverflowCard({
 			<SearchBar2 />
 			<Sidebar2 categories={categories} />
 			{editMode ? (
-				<AddItem
-					endpoint={`http://localhost:5050/items/${item._id}/edit`}
-					initialValues={item}
-					categories={categories}
-				/>
+				<AddItem initialValues={item} categories={categories} />
 			) : (
 				<>
 					<StyledBox
@@ -132,7 +128,7 @@ export default function OverflowCard({
 						sx={{ display: "flex", justifyContent: "center", marginTop: 14 }}
 					>
 						<Box position={"relative"}>
-							<Card2 maxWidth={800} item={item} />
+							<Card2 item={item} />
 							<Fab
 								variant="extended"
 								color="main"

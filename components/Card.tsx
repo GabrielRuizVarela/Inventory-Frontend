@@ -11,10 +11,7 @@ import { AppContext } from "../pages/_app";
 import { AspectRatio } from "@mui/joy";
 import { imageConfigDefault } from "next/dist/shared/lib/image-config";
 
-export default function MediaCard({
-	item,
-	maxWidth,
-}: { item: Item; maxWidth: number }) {
+export default function MediaCard({ item }: { item: Item }) {
 	const { isRemoveMode, isDetailPage } = useContext(AppContext);
 	const handleDelete = (id: string) => {
 		// fetch(`http://localhost:5050/items/${id}/delete`, {
@@ -42,11 +39,7 @@ export default function MediaCard({
 						},
 					}}
 				>
-					<Card
-						sx={{
-							maxWidth: { maxWidth },
-						}}
-					>
+					<Card>
 						{isRemoveMode && (
 							<IconButton
 								onClick={() => handleDelete(item._id)}

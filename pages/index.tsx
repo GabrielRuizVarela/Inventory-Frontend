@@ -176,13 +176,13 @@ export default function Home({
 										}}
 									>
 										{isRemoveMode ? (
-											<Card2 maxWidth={300} key={item._id} item={item} />
+											<Card2 key={item._id} item={item} />
 										) : (
 											<Link
 												href={`/items/${item._id}`}
 												style={{ textDecoration: "none" }}
 											>
-												<Card2 maxWidth={300} key={item._id} item={item} />
+												<Card2 key={item._id} item={item} />
 											</Link>
 										)}
 									</Grid2>
