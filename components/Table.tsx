@@ -25,9 +25,13 @@ function createData(
 export default function DenseTable({ items }: { items: Item[] }) {
 	const { isRemoveMode } = React.useContext(AppContext);
 	const handleDelete = (id: string) => {
-		fetch(`http://localhost:5050/items/${id}/delete`, {
-			method: "DELETE",
-		}).then((res) => {
+		// fetch(`http://localhost:5050/items/${id}/delete`, {
+		fetch(
+			"https://inventory-backend-production.up.railway.app/items/${id}/delete",
+			{
+				method: "DELETE",
+			},
+		).then((res) => {
 			if (res.status === 200) {
 				Router.push("/");
 			}

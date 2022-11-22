@@ -21,8 +21,10 @@ import { AppContext } from "../_app";
 export const getServerSideProps = async (context: any) => {
 	const id = context.params.id;
 	const [res1, res2] = await Promise.all([
-		fetch("http://localhost:5050/items/"),
-		fetch("http://localhost:5050/categories"),
+		// fetch("http://localhost:5050/items/"),
+		// fetch("http://localhost:5050/categories"),
+		fetch("https://inventory-backend-production.up.railway.app/items/"),
+		fetch("https://inventory-backend-production.up.railway.app/categories"),
 	]);
 	const item = await res1.json();
 	const categories = await res2.json();

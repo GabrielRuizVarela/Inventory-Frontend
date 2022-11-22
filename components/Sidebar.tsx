@@ -140,7 +140,8 @@ const AddForm = ({
 			onSubmit={(values, { setSubmitting }) => {
 				setTimeout(() => {
 					setSubmitting(true);
-					fetch("http://localhost:5050/categories/create", {
+					// fetch("http://localhost:5050/categories/create", {
+            fetch("https://inventory-backend-production.up.railway.app/categories/create", {
 						method: "POST",
 						headers: {
 							cors: "no-cors",

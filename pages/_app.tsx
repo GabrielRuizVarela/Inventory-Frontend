@@ -65,7 +65,8 @@ export default function App({ Component, pageProps }: AppProps) {
 	>("success");
 	const [isAddCategory, setIsAddCategory] = useState(false);
 	const handleDeleteCategory = (id: string) => {
-		fetch(`http://localhost:5050/categories/${id}/delete`, {
+		// fetch(`http://localhost:5050/categories/${id}/delete`, {
+      fetch("https://inventory-backend-production.up.railway.app/categories/${id}/delete", {
 			method: "DELETE",
 			headers: {
 				cors: "no-cors",

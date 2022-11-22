@@ -51,8 +51,14 @@ export const StyledBox = styled(Box)<{ opendrawer: string; theme: Theme }>(
 
 // fetch from serverside
 export async function getServerSideProps() {
-	const res = await fetch("http://localhost:5050/items/");
-	const res2 = await fetch("http://localhost:5050/categories/");
+	// const res = await fetch("http://localhost:5050/items/");
+	const res = await fetch(
+		"https://inventory-backend-production.up.railway.app/items/",
+	);
+	// const res2 = await fetch("http://localhost:5050/categories/");
+	const res2 = await fetch(
+		"https://inventory-backend-production.up.railway.app/categories/",
+	);
 	const data = await res.json();
 	const data2 = await res2.json();
 	// console.log(data2);

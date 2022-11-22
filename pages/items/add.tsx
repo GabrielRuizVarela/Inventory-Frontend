@@ -22,7 +22,10 @@ import { AppContext } from "../_app";
 
 // get categories from server
 export const getServerSideProps = async () => {
-	const res = await fetch("http://localhost:5050/categories/");
+	// const res = await fetch("http://localhost:5050/categories/");
+	const res = await fetch(
+		"https://inventory-backend-production.up.railway.app/categories/",
+	);
 	const data = await res.json();
 
 	return {
@@ -32,20 +35,17 @@ export const getServerSideProps = async () => {
 
 export default function AddItem({
 	categories,
-	endpoint,
 	initialValues,
-}: { categories: Category[]; endpoint: string; initialValues: Item }) {
+}: { categories: Category[]; initialValues: Item }) {
 	const router = useRouter();
 	const theme = useTheme();
 	const { openSidebar } = useContext(AppContext);
 	return (
 		<>
-			{!endpoint && (
-				<>
-					<Sidebar categories={categories} />
-					<SearchBar />
-				</>
-			)}
+			<>
+				<Sidebar categories={categories} />
+				<SearchBar />
+			</>
 			<StyledBox
 				theme={theme}
 				opendrawer={openSidebar.toString()}
@@ -75,13 +75,17 @@ export default function AddItem({
 								onSubmit={(values, { setSubmitting }) => {
 									setTimeout(() => {
 										setSubmitting(false);
-										fetch(endpoint || "http://localhost:5050/items/create", {
-											method: "POST",
-											headers: {
-												"Content-Type": "application/json",
+										// fetch("http://localhost:5050/items/create", {
+										fetch(
+											"https://inventory-backend-production.up.railway.app/items/create",
+											{
+												method: "POST",
+												headers: {
+													"Content-Type": "application/json",
+												},
+												body: JSON.stringify(values),
 											},
-											body: JSON.stringify(values),
-										})
+										)
 											.then(() => {
 												router.push("/");
 												console.log(values);

@@ -17,9 +17,13 @@ export default function MediaCard({
 }: { item: Item; maxWidth: number }) {
 	const { isRemoveMode, isDetailPage } = useContext(AppContext);
 	const handleDelete = (id: string) => {
-		fetch(`http://localhost:5050/items/${id}/delete`, {
-			method: "DELETE",
-		}).then((res) => {
+		// fetch(`http://localhost:5050/items/${id}/delete`, {
+		fetch(
+			"https://inventory-backend-production.up.railway.app/items/${id}/delete",
+			{
+				method: "DELETE",
+			},
+		).then((res) => {
 			if (res.status === 200) {
 				Router.push("/");
 			}
@@ -45,7 +49,7 @@ export default function MediaCard({
 					>
 						{isRemoveMode && (
 							<IconButton
-							onClick={() => handleDelete(item._id)}
+								onClick={() => handleDelete(item._id)}
 								sx={{ position: "absolute", top: -20, right: -20, zIndex: 2 }}
 							>
 								<RemoveCircleIcon />
