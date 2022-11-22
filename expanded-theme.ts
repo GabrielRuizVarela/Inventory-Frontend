@@ -1,4 +1,5 @@
 import '@mui/material/styles';
+import { PaletteColor, PaletteColorOptions } from '@mui/material/styles';
 
 declare module '@mui/material/styles' {
   interface Palette {
@@ -21,5 +22,4 @@ declare module '@mui/material/Fab' {
   }
 }
 
-import '@material-ui/core/styles';
-import { PaletteColor, PaletteColorOptions } from '@mui/material/styles';
+// import '@material-ui/core/styles';
