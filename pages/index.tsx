@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import Head from "next/head";
 import { Container, Theme, useTheme } from "@mui/material";
 import { Box } from "@mui/system";
@@ -10,6 +10,7 @@ import Sidebar2 from "../components/Sidebar";
 import { AppContext } from "./_app";
 import styled from "@emotion/styled";
 import Card2 from "../components/Card";
+import useGetData from "../hooks/useGetData";
 
 const drawerWidth = 240;
 export const StyledBox = styled(Box)<{ opendrawer: string; theme: Theme }>(
@@ -30,24 +31,6 @@ export const StyledBox = styled(Box)<{ opendrawer: string; theme: Theme }>(
 	}),
 );
 
-export async function getServerSideProps() {
-	const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/items`);
-	// const res = await fetch(
-	//   "https://inventory-backend-production.up.railway.app/items/",
-	// );
-	const res2 = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/categories`);
-	// const res2 = await fetch(
-	// 	"https://inventory-backend-production.up.railway.app/categories/",
-	// );
-	const { items } = await res.json();
-	const { categories } = await res2.json();
-	return {
-		props: {
-			serverItems: items,
-			serverCategories: categories,
-		},
-	};
-}
 export type Item = {
 	_id: string;
 	name: string;
@@ -68,13 +51,29 @@ export type Category = {
 	description: string;
 };
 
-export default function Home({
-	serverItems,
-	serverCategories: serverCategories,
-}: { serverItems: Item[]; serverCategories: Category[] }) {
-	const { view, isRemoveMode, openSidebar, searchValue } =
-		useContext(AppContext);
+const dev = process.env.NODE_ENV !== "production";
+export const server = dev
+	? process.env.NEXT_PUBLIC_API_URL
+	: `https://${process.env.NEXT_PUBLIC_VERCEL_URL}`;
+
+export default function Home() {
+	// export default function Home({
+	// 	serverItems,
+	// 	serverCategories: serverCategories,
+	// }: { serverItems: Item[]; serverCategories: Category[] }) {
+	const {
+		view,
+		isRemoveMode,
+		openSidebar,
+		searchValue,
+		items,
+		setItems,
+		categories,
+		setCategories,
+    refetch,
+} = useContext(AppContext);
 	const theme = useTheme();
+	useGetData(setItems, setCategories, refetch);
 	return (
 		<>
 			<Head>
@@ -83,7 +82,7 @@ export default function Home({
 				<link rel="icon" href="/favicon.ico" />
 			</Head>
 			<SearchBar2 />
-			<Sidebar2 categories={serverCategories} />
+			<Sidebar2 categories={categories} />
 			<main>
 				<StyledBox
 					theme={theme}
@@ -99,7 +98,7 @@ export default function Home({
 							columns={{ xs: 4, sm: 8, md: 12 }}
 							justifyContent="center"
 						>
-							{serverItems
+							{items
 								?.filter((item) =>
 									item.name.toLowerCase().includes(searchValue.toLowerCase()),
 								)
@@ -116,6 +115,7 @@ export default function Home({
 										) : (
 											<Link
 												href={`/items/${item._id}`}
+												key={item._id}
 												style={{ textDecoration: "none" }}
 											>
 												<Card2 key={item._id} item={item} />
@@ -127,7 +127,7 @@ export default function Home({
 					) : (
 						<Container sx={{ marginTop: 4 }}>
 							<Table
-								items={serverItems.filter((item) =>
+								items={items.filter((item) =>
 									item.name.toLowerCase().includes(searchValue.toLowerCase()),
 								)}
 							/>

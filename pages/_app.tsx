@@ -3,37 +3,54 @@ import type { AppProps } from "next/app";
 import Layout from "../components/Layout";
 import { createTheme, CssBaseline, ThemeProvider } from "@mui/material";
 import { createContext, useMemo, useState } from "react";
-import router from "next/router";
+import { useRouter } from "next/router";
+import { Item, Category } from ".";
 
 export const ColorModeContext = createContext({ toggleColorMode: () => {} });
-export const AppContext = createContext({
-	view: "grid",
-	setView: (view: "grid" | "list") => {},
-	isDetailPage: false,
-	setIsDetailPage: (isDetailPage: boolean) => {},
-	isRemoveMode: false,
-	setIsRemoveMode: (removeMode: boolean) => {},
-	openSidebar: true,
-	setOpenSidebar: (openSidebar: boolean) => {},
-	openMobileSidebar: false,
-	setOpenMobileSidebar: (openMobileSidebar: boolean) => {},
-	handleDeleteCategory: (id: string) => {},
-	showAlert: false,
-	setShowAlert: (showAlert: boolean) => {},
-	alertMessage: "",
-	setAlertMessage: (alertMessage: string) => {},
-	alertSeverity: "success" as "success" | "error" | "info" | "warning",
-	setAlertSeverity: (severity: "success" | "error" | "warning" | "info") => {},
-	isAddCategory: false,
-	setIsAddCategory: (isAddCategory: boolean) => {},
-	searchValue: "",
-	setSearchValue: (searchValue: string) => {},
-});
+
+export interface AppContextInterface {
+	view: "grid" | "list";
+	setView: (view: "grid" | "list") => void;
+	isDetailPage: boolean;
+	setIsDetailPage: (isDetailPage: boolean) => void;
+	isRemoveMode: boolean;
+	setIsRemoveMode: (removeMode: boolean) => void;
+	openSidebar: boolean;
+	setOpenSidebar: (openSidebar: boolean) => void;
+	openMobileSidebar: boolean;
+	setOpenMobileSidebar: (openMobileSidebar: boolean) => void;
+	handleDeleteCategory: (id: string) => void;
+	showAlert: boolean;
+	setShowAlert: (showAlert: boolean) => void;
+	alertMessage: string;
+	setAlertMessage: (alertMessage: string) => void;
+	alertSeverity: "success" | "error" | "warning" | "info";
+	setAlertSeverity: (
+		severity: "success" | "error" | "warning" | "info",
+	) => void;
+	isAddCategory: boolean;
+	setIsAddCategory: (isAddCategory: boolean) => void;
+	searchValue: string;
+	setSearchValue: (searchValue: string) => void;
+	items: Item[];
+	setItems: (items: Item[]) => void;
+	categories: Category[];
+	setCategories: (categories: Category[]) => void;
+	refetch: boolean;
+	setRefetch: (refetch: boolean) => void;
+}
+
+export const AppContext = createContext({} as AppContextInterface);
 
 export default function App({ Component, pageProps }: AppProps) {
+	const router = useRouter();
+	// Initialize state
+	const [items, setItems] = useState<Item[]>([]);
+	const [categories, setCategories] = useState<Category[]>([]);
+	const [refetch, setRefetch] = useState(false);
 	// SearchBar
 	const [mode, setMode] = useState<"light" | "dark">("light");
-	const [view, setView] = useState("grid");
+	const [view, setView] = useState<"grid" | "list">("grid");
 	const [isDetailPage, setIsDetailPage] = useState(false);
 	const [isRemoveMode, setIsRemoveMode] = useState(false);
 	const [searchValue, setSearchValue] = useState("");
@@ -47,25 +64,19 @@ export default function App({ Component, pageProps }: AppProps) {
 	>("success");
 	const [isAddCategory, setIsAddCategory] = useState(false);
 	const handleDeleteCategory = (id: string) => {
-		// fetch(`http://localhost:5050/categories/${id}/delete`, {
-		// fetch("https://inventory-backend-production.up.railway.app/categories/${id}/delete", {
 		fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/categories/${id}/delete`, {
 			method: "DELETE",
-			// headers: {
-			// 	cors: "no-cors",
-			// },
 		})
 			.then((res) => {
 				if (res.ok) {
-					// setCategories(categories.filter((category) => category._id !== id));
 					setShowAlert(true);
-					// timeout to hide the alert
 					setTimeout(() => {
 						setShowAlert(false);
 					}, 3000);
 					setAlertSeverity("success");
 					setAlertMessage("Category deleted successfully");
-					router.push("/");
+					setCategories(categories.filter((category) => category._id !== id));
+					setRefetch(!refetch);
 				}
 				// if response status is 422, then the item is not deleted
 				if (res.status === 422) {
@@ -132,7 +143,7 @@ export default function App({ Component, pageProps }: AppProps) {
 			}),
 		[mode],
 	);
-	const appContext = useMemo(
+	const appContext: AppContextInterface = useMemo(
 		() => ({
 			view,
 			setView,
@@ -155,6 +166,12 @@ export default function App({ Component, pageProps }: AppProps) {
 			setIsAddCategory,
 			searchValue,
 			setSearchValue,
+			items,
+			setItems,
+			categories,
+			setCategories,
+			refetch,
+			setRefetch,
 		}),
 		[
 			view,
@@ -167,6 +184,8 @@ export default function App({ Component, pageProps }: AppProps) {
 			isAddCategory,
 			openMobileSidebar,
 			searchValue,
+			items,
+			categories,
 		],
 	);
 	return (

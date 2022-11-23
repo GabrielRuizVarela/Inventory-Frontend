@@ -6,28 +6,26 @@ import Typography from "@mui/material/Typography";
 import { Item } from "../pages/index";
 import { Box, CardActionArea, Divider, IconButton, Stack } from "@mui/material";
 import RemoveCircleIcon from "@mui/icons-material/RemoveCircle";
-import Router from "next/router";
+import { useRouter } from "next/router";
 import { AppContext } from "../pages/_app";
 
 export default function MediaCard({ item }: { item: Item }) {
-	const { isRemoveMode, isDetailPage } = useContext(AppContext);
+	const { isRemoveMode, refetch, setRefetch, setItems, items } =
+		useContext(AppContext);
+	const router = useRouter();
 	const handleDelete = (id: string) => {
-		// fetch(`http://localhost:5050/items/${id}/delete`, {
-		fetch(
-			`api/items/${id}/delete`,
-			// "https://inventory-backend-production.up.railway.app/items/${id}/delete",
-			{
-				method: "DELETE",
-			},
-		).then((res) => {
+		fetch(`api/items/${id}/delete`, {
+			method: "DELETE",
+		}).then((res) => {
 			if (res.status === 200) {
-				Router.push("/");
+				setItems(items.filter((item) => item._id !== id));
+				setRefetch(!refetch);
 			}
 		});
 	};
 	return (
 		<>
-			{item ? (
+			{item && (
 				<Box
 					component="div"
 					sx={{
@@ -51,10 +49,6 @@ export default function MediaCard({ item }: { item: Item }) {
 							<CardMedia
 								component="img"
 								height="140"
-								// height="240"
-								// minHeight="240"
-								// width="140"
-								// image="/stock-photo.jpg"
 								src={item.img_url}
 								alt={item.name}
 								sx={{
@@ -100,7 +94,7 @@ export default function MediaCard({ item }: { item: Item }) {
 						</CardActionArea>
 					</Card>
 				</Box>
-			) : null}
+			)}
 		</>
 	);
 }

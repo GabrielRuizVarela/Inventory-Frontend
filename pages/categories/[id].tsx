@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import Head from "next/head";
 import { Container, Theme, useTheme } from "@mui/material";
 import { Box } from "@mui/system";
@@ -9,6 +9,9 @@ import Sidebar2 from "../../components/Sidebar";
 import { AppContext } from "../_app";
 import styled from "@emotion/styled";
 import Card2 from "../../components/Card";
+import Table from "../../components/Table";
+import { useRouter } from "next/router";
+import useGetData from "../../hooks/useGetData";
 
 const drawerWidth = 240;
 const StyledBox = styled(Box)<{ opendrawer: string; theme: Theme }>(
@@ -28,27 +31,6 @@ const StyledBox = styled(Box)<{ opendrawer: string; theme: Theme }>(
 		}),
 	}),
 );
-
-// fetch from serverside
-export async function getServerSideProps(context: any) {
-	const id = context.params.id;
-	const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/items`);
-	// const res = await fetch(
-	//   "https://inventory-backend-production.up.railway.app/items/",
-	// );
-	const res2 = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/categories`);
-	// const res2 = await fetch(
-	// 	"https://inventory-backend-production.up.railway.app/categories/",
-	// );
-	const data = await res.json();
-	const data2 = await res2.json();
-	return {
-		props: {
-			serverItems: data.filter((item: any) => item.category._id === id),
-			serverCategories: data2.filter((item: any) => item._id === id),
-		},
-	};
-}
 
 export type Item = {
 	_id: string;
@@ -70,52 +52,23 @@ export type Category = {
 	description: string;
 };
 
-export default function Home({
-	serverItems,
-	serverCategories: serverCategories,
-}: { serverItems: Item[]; serverCategories: Category[] }) {
-	// const [items, setItems] = React.useState<Item[] | null>(null);
-	// const [categories, setCategorys] = React.useState<Category[] | []>([]);
-	// const [activeCategory, setActiveCategory] = React.useState<string>('All');
-	// const [view, setView] = React.useState("grid");
-	// const [removeMode, setRemoveMode] = React.useState(false);
-	// useEffect(() => {
-	//   setItems(serverItems);
-	//   setCategorys([
-	//     ...serverCategories,
-	//   ]);
-	// }, [serverCategories, serverItems]);
-	// const handleSidebarClick = (item: Category) => {
-	//   setActiveCategory(item.name);
-	//   if (item._id === "all") {
-	//     setItems(serverItems);
-	//   } else {
-	//     const filteredData = serverItems.filter(
-	//       (item2: Item) => item2.category._id === item._id,
-	//     );
-	//     setItems(filteredData);
-	//   }
-	// };
-	// const handleSetView = (view: string) => {
-	//   setView(view);
-	// };
-	// const handleRemoveMode = () => {
-	//   setRemoveMode(!removeMode);
-	// }
-	// const handleDelete = (id: string) => {
-	//   fetch(`http://localhost:5050/items/${id}/delete`, {
-	//     method: "DELETE",
-	//   }).then((res) => {
-	//     if (res.status === 200) {
-	//       const filteredData = items?.filter((item: Item) => item._id !== id);
-	//       setItems(filteredData || []);
-	//     }
-	//   }
-	//   );
-	// };
-	// @refresh reset
-	const { view, isRemoveMode, openSidebar } = useContext(AppContext);
+export default function Categories() {
+	const {
+		view,
+		isRemoveMode,
+		openSidebar,
+		items,
+		categories,
+		searchValue,
+		setItems,
+		setCategories,
+	} = useContext(AppContext);
+	const router = useRouter();
+	const id = router.query.id;
+	const filteredByCategory = items.filter((item) => item.category._id === id);
 	const theme = useTheme();
+	useGetData(setItems, setCategories);
+
 	return (
 		<>
 			<Head>
@@ -124,7 +77,7 @@ export default function Home({
 				<link rel="icon" href="/favicon.ico" />
 			</Head>
 			<SearchBar2 />
-			<Sidebar2 categories={serverCategories} />
+			<Sidebar2 categories={categories} />
 			<main>
 				<StyledBox
 					theme={theme}
@@ -140,13 +93,12 @@ export default function Home({
 							columns={{ xs: 4, sm: 8, md: 12 }}
 							justifyContent="center"
 						>
-							{serverItems?.map((item) => (
+							{filteredByCategory?.map((item) => (
 								<Grid2
 									xs={"auto"}
 									key={item._id}
 									sx={{
 										display: "flex",
-										// alignItems: "center",
 									}}
 								>
 									<Link
@@ -159,17 +111,16 @@ export default function Home({
 							))}
 						</Grid2>
 					) : (
-						<Container sx={{ marginTop: 12 }}>
-							{/* <Table
-							items={items || []}
-							removeMode={removeMode}
-							handleDelete={handleDelete}
-						/> */}
+						<Container sx={{ marginTop: 4 }}>
+							<Table
+								items={filteredByCategory.filter((item) =>
+									item.name.toLowerCase().includes(searchValue.toLowerCase()),
+								)}
+							/>
 						</Container>
 					)}
 				</StyledBox>
 			</main>
-			{/* </Box> */}
 		</>
 	);
 }

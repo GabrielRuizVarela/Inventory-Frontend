@@ -24,7 +24,7 @@ import { Add, RemoveCircleOutline } from "@mui/icons-material";
 import Alert from "./Alert";
 import { Form, Formik } from "formik";
 import * as Yup from "yup";
-import Router from "next/router";
+import { useRouter } from "next/router";
 import Link from "next/link";
 
 let drawerWidth = 240;
@@ -104,6 +104,10 @@ const AddForm = ({
 	setAlertSeverity,
 	setAlertMessage,
 	setIsAddCategory,
+	setCategories,
+	categories,
+	refetch,
+	setRefetch,
 }: {
 	setShowAlert: (set: boolean) => void;
 	setAlertSeverity: (
@@ -111,7 +115,12 @@ const AddForm = ({
 	) => void;
 	setAlertMessage: (msg: string) => void;
 	setIsAddCategory: (set: boolean) => void;
+	setCategories: (categories: Category[]) => void;
+	categories: Category[] | undefined;
+	refetch: boolean;
+	setRefetch: (refetch: boolean) => void;
 }) => {
+	const router = useRouter();
 	return (
 		<Formik
 			enableReinitialize={true}
@@ -131,26 +140,21 @@ const AddForm = ({
 			onSubmit={(values, { setSubmitting }) => {
 				setTimeout(() => {
 					setSubmitting(true);
-					// fetch("http://localhost:5050/categories/create", {
-					fetch(
-						`${process.env.NEXT_PUBLIC_API_URL}}/categories/create`,
-						// "https://inventory-backend-production.up.railway.app/categories/create",
-						{
-							method: "POST",
-							headers: {
-								cors: "no-cors",
-								"Content-Type": "application/json",
-							},
-							body: JSON.stringify({
-								name: values.name,
-								description: values.description,
-							}),
+					fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/categories/create`, {
+						method: "POST",
+						headers: {
+							cors: "no-cors",
+							"Content-Type": "application/json",
 						},
-					)
+						body: JSON.stringify({
+							name: values.name,
+							description: values.description,
+						}),
+					})
 						.then((res) => {
 							// console.log(res.status);
 							if (res.status === 422) {
-								// console.log("category already exists");
+								console.log("category already exists");
 								setShowAlert(true);
 								setTimeout(() => {
 									setShowAlert(false);
@@ -166,8 +170,12 @@ const AddForm = ({
 									setAlertSeverity("success");
 									setAlertMessage("Category added successfully");
 									setIsAddCategory(false);
-									// redirect to home page
-									Router.push("/");
+									// router.reload();
+									setCategories([
+										...(categories || []),
+										{ ...values, _id: values.name },
+									]);
+									setRefetch(!refetch);
 								}
 							}
 						})
@@ -249,7 +257,6 @@ interface Props {
 }
 
 export default function Sidebar2({ categories }: Props) {
-	// console.log(categories);
 	const theme = useTheme();
 	const {
 		openSidebar,
@@ -266,6 +273,9 @@ export default function Sidebar2({ categories }: Props) {
 		setAlertSeverity,
 		isAddCategory,
 		setIsAddCategory,
+		setCategories,
+		refetch,
+		setRefetch,
 	} = useContext(AppContext);
 
 	return (
@@ -334,6 +344,10 @@ export default function Sidebar2({ categories }: Props) {
 							setAlertSeverity={setAlertSeverity}
 							setAlertMessage={setAlertMessage}
 							setIsAddCategory={setIsAddCategory}
+							setCategories={setCategories}
+							categories={categories}
+							refetch={refetch}
+							setRefetch={setRefetch}
 						/>
 					)}
 					<Alert
@@ -399,6 +413,10 @@ export default function Sidebar2({ categories }: Props) {
 							setAlertSeverity={setAlertSeverity}
 							setAlertMessage={setAlertMessage}
 							setIsAddCategory={setIsAddCategory}
+							categories={categories}
+							setCategories={setCategories}
+							refetch={refetch}
+							setRefetch={setRefetch}
 						/>
 					)}
 

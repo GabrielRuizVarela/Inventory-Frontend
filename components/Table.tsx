@@ -10,21 +10,17 @@ import { Item } from "../pages";
 import { Button, IconButton } from "@mui/material";
 import { DeleteOutline } from "@mui/icons-material";
 import { AppContext } from "../pages/_app";
-import Router from "next/router";
+import { useRouter } from "next/router";
 
 export default function DenseTable({ items }: { items: Item[] }) {
 	const { isRemoveMode } = React.useContext(AppContext);
+	const router = useRouter();
 	const handleDelete = (id: string) => {
-		// fetch(`http://localhost:5050/items/${id}/delete`, {
-		fetch(
-			`${process.env.NEXT_PUBLIC_API_URL}/items/${id}/delete`,
-			// "https://inventory-backend-production.up.railway.app/items/${id}/delete",
-			{
-				method: "DELETE",
-			},
-		).then((res) => {
+		fetch(`${process.env.NEXT_PUBLIC_API_URL}/items/${id}/delete`, {
+			method: "DELETE",
+		}).then((res) => {
 			if (res.status === 200) {
-				Router.push("/");
+				router.push("/");
 			}
 		});
 	};
