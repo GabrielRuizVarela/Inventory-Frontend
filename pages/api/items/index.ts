@@ -1,8 +1,10 @@
 import { NextApiRequest, NextApiResponse } from 'next';
+
 import { connect } from '../../../conection';
 
 export default async function handler(
   req: NextApiRequest,
+
   res: NextApiResponse,
 ) {
   const { Item } = await connect();

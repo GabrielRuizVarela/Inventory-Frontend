@@ -7,12 +7,13 @@ export default function useGetData(
   refetch: boolean,
 ) {
   useEffect(() => {
-    console.log('refetching..........');
     fetch(`${server}/api/items`)
       .then((res) => res.json())
-      .then((data) => setItems(data.items));
+      .then((data) => setItems(data.items))
+      .catch((err) => console.log(err));
     fetch(`${server}/api/categories`)
       .then((res) => res.json())
-      .then((data) => setCategories(data.categories));
+      .then((data) => setCategories(data.categories))
+      .catch((err) => console.log(err));
   }, [refetch]);
 }

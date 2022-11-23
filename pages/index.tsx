@@ -57,10 +57,6 @@ export const server = dev
 	: `https://${process.env.NEXT_PUBLIC_VERCEL_URL}`;
 
 export default function Home() {
-	// export default function Home({
-	// 	serverItems,
-	// 	serverCategories: serverCategories,
-	// }: { serverItems: Item[]; serverCategories: Category[] }) {
 	const {
 		view,
 		isRemoveMode,
