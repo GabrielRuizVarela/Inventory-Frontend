@@ -1,15 +1,6 @@
 // Form to add a new item
-import React, { Children, useContext } from "react";
-import {
-	Button,
-	Container,
-	Grid,
-	Paper,
-	useTheme,
-	Select,
-	MenuItem,
-} from "@mui/material";
-
+import React, { useContext } from "react";
+import { Button, Grid, Paper, useTheme } from "@mui/material";
 import { Item, StyledBox } from "../../pages/index";
 import Sidebar from "../../components/Sidebar";
 import SearchBar from "../../components/SearchBar";
@@ -57,7 +48,6 @@ export default function AddItem({
 					<Grid container={true} spacing={2} sx={{ justifyContent: "center" }}>
 						<Grid item={true} xs={12} md={9}>
 							<Formik
-								// enableReinitialize={true}
 								initialValues={{
 									name: initialValues?.name || "",
 									price: initialValues?.price || 0,
@@ -77,7 +67,6 @@ export default function AddItem({
 								onSubmit={(values, { setSubmitting }) => {
 									setTimeout(() => {
 										setSubmitting(false);
-										// fetch("http://localhost:5050/items/create", {
 										let endpoint = `${process.env.NEXT_PUBLIC_API_URL}/api/items/create`;
 										initialValues
 											? (endpoint = `${process.env.NEXT_PUBLIC_API_URL}/api/items/${initialValues._id}/edit`)

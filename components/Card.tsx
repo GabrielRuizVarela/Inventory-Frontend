@@ -8,8 +8,6 @@ import { Box, CardActionArea, Divider, IconButton, Stack } from "@mui/material";
 import RemoveCircleIcon from "@mui/icons-material/RemoveCircle";
 import Router from "next/router";
 import { AppContext } from "../pages/_app";
-import { AspectRatio } from "@mui/joy";
-import { imageConfigDefault } from "next/dist/shared/lib/image-config";
 
 export default function MediaCard({ item }: { item: Item }) {
 	const { isRemoveMode, isDetailPage } = useContext(AppContext);

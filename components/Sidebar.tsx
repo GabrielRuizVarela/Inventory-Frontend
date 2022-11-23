@@ -1,30 +1,21 @@
 import {
 	Drawer,
-	SwipeableDrawer,
-	Container,
-	AppBar,
 	Box,
 	CssBaseline,
 	Divider,
 	IconButton,
 	List,
 	ListItem,
-	ListItemButton,
-	ListItemIcon,
 	ListItemText,
-	Toolbar,
-	Typography,
 	styled,
 	useTheme,
 	Tooltip,
 	Button,
 	TextField,
 } from "@mui/material";
-import { Main } from "next/document";
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import { AppContext } from "../pages/_app";
-import MuiAppBar, { AppBarProps as MuiAppBarProps } from "@mui/material/AppBar";
-import MenuIcon from "@mui/icons-material/Menu";
+import { AppBarProps as MuiAppBarProps } from "@mui/material/AppBar";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import SearchBar2 from "./SearchBar";

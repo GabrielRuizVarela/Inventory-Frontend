@@ -12,16 +12,6 @@ import { DeleteOutline } from "@mui/icons-material";
 import { AppContext } from "../pages/_app";
 import Router from "next/router";
 
-function createData(
-	name: string,
-	calories: number,
-	fat: number,
-	carbs: number,
-	protein: number,
-) {
-	return { name, calories, fat, carbs, protein };
-}
-
 export default function DenseTable({ items }: { items: Item[] }) {
 	const { isRemoveMode } = React.useContext(AppContext);
 	const handleDelete = (id: string) => {

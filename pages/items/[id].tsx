@@ -1,33 +1,18 @@
 import React, { useContext } from "react";
 import { Category, Item } from "../index";
-import AspectRatio from "@mui/joy/AspectRatio";
-import Card from "@mui/joy/Card";
-import CardOverflow from "@mui/joy/CardOverflow";
-import Divider from "@mui/joy/Divider";
-
-import SearchBar from "../../components/SearchBar";
-import Sidebar from "../../components/Sidebar";
-import { Container } from "@mui/system";
-import { Box, Paper, useTheme } from "@mui/material";
+import { Box, useTheme } from "@mui/material";
 import AddItem from "./add";
 import Fab from "@mui/material/Fab";
 import SearchBar2 from "../../components/SearchBar";
 import { StyledBox } from "../index";
 import Sidebar2 from "../../components/Sidebar";
 import Card2 from "../../components/Card";
-import { Typography } from "@mui/joy";
 import { AppContext } from "../_app";
 
 export const getServerSideProps = async (context: any) => {
 	const id = context.params.id;
 	const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/items`);
-	// const res = await fetch(
-	//   "https://inventory-backend-production.up.railway.app/items/",
-	// );
 	const res2 = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/categories`);
-	// const res2 = await fetch(
-	// 	"https://inventory-backend-production.up.railway.app/categories/",
-	// );
 	const { items } = await res.json();
 	const { categories } = await res2.json();
 	return {
@@ -73,11 +58,6 @@ export default function OverflowCard({
 								Edit
 							</Fab>
 						</Box>
-						{/* <ItemCard
-							item={item}
-							categories={categories}
-							handleEditClick={handleEditClick}
-						/> */}
 					</StyledBox>
 				</>
 			)}

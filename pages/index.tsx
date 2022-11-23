@@ -1,6 +1,5 @@
 import React, { useContext } from "react";
 import Head from "next/head";
-import styles from "../styles/Home.module.css";
 import { Container, Theme, useTheme } from "@mui/material";
 import { Box } from "@mui/system";
 import Grid2 from "@mui/material/Unstable_Grid2"; // Grid version 2
@@ -85,7 +84,7 @@ export default function Home({
 			</Head>
 			<SearchBar2 />
 			<Sidebar2 categories={serverCategories} />
-			<main className={styles.main}>
+			<main>
 				<StyledBox
 					theme={theme}
 					opendrawer={openSidebar.toString()}
