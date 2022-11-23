@@ -7,7 +7,6 @@ export default async function handler(
 ) {
   // Get the data from the request
   const { name, stock, price, img_url, description, category } = req.body;
-  console.log(req.body);
   // Connect to the database
   const { Item } = await connect();
   const item = await Item.create({

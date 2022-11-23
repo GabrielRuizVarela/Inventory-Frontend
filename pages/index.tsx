@@ -37,7 +37,6 @@ export async function getServerSideProps() {
 	//   "https://inventory-backend-production.up.railway.app/items/",
 	// );
 	const res2 = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/categories`);
-	console.log(`${process.env.NEXT_PUBLIC_API_URL}/api/categories`);
 	// const res2 = await fetch(
 	// 	"https://inventory-backend-production.up.railway.app/categories/",
 	// );

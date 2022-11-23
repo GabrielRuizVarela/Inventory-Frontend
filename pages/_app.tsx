@@ -66,35 +66,40 @@ export default function App({ Component, pageProps }: AppProps) {
 	const [isAddCategory, setIsAddCategory] = useState(false);
 	const handleDeleteCategory = (id: string) => {
 		// fetch(`http://localhost:5050/categories/${id}/delete`, {
-      fetch("https://inventory-backend-production.up.railway.app/categories/${id}/delete", {
+		// fetch("https://inventory-backend-production.up.railway.app/categories/${id}/delete", {
+		fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/categories/${id}/delete`, {
 			method: "DELETE",
-			headers: {
-				cors: "no-cors",
-			},
-		}).then((res) => {
-			if (res.ok) {
-				// setCategories(categories.filter((category) => category._id !== id));
-				setShowAlert(true);
-				// timeout to hide the alert
-				setTimeout(() => {
-					setShowAlert(false);
-				}, 3000);
-				setAlertSeverity("success");
-				setAlertMessage("Category deleted successfully");
-				router.push("/");
-			}
-			// if response status is 422, then the item is not deleted
-			if (res.status === 422) {
-				setShowAlert(true);
-				setTimeout(() => {
-					setShowAlert(false);
-				}, 3000);
-				setAlertSeverity("error");
-				setAlertMessage(
-					"Category not deleted, check if there are any items in this category",
-				);
-			}
-		});
+			// headers: {
+			// 	cors: "no-cors",
+			// },
+		})
+			.then((res) => {
+				if (res.ok) {
+					// setCategories(categories.filter((category) => category._id !== id));
+					setShowAlert(true);
+					// timeout to hide the alert
+					setTimeout(() => {
+						setShowAlert(false);
+					}, 3000);
+					setAlertSeverity("success");
+					setAlertMessage("Category deleted successfully");
+					router.push("/");
+				}
+				// if response status is 422, then the item is not deleted
+				if (res.status === 422) {
+					setShowAlert(true);
+					setTimeout(() => {
+						setShowAlert(false);
+					}, 3000);
+					setAlertSeverity("error");
+					setAlertMessage(
+						"Category not deleted, check if there are any items in this category",
+					);
+				}
+			})
+			.catch((err) => {
+				console.log(err);
+			});
 	};
 
 	const colorMode = useMemo(

@@ -75,11 +75,9 @@ export default function AddItem({
 									category: Yup.string().required("Required"),
 								})}
 								onSubmit={(values, { setSubmitting }) => {
-									console.log(process.env.NEXT_PUBLIC_API_URL);
 									setTimeout(() => {
 										setSubmitting(false);
 										// fetch("http://localhost:5050/items/create", {
-										console.log(process.env.NEXT_PUBLIC_API_URL);
 										let endpoint = `${process.env.NEXT_PUBLIC_API_URL}/api/items/create`;
 										initialValues
 											? (endpoint = `${process.env.NEXT_PUBLIC_API_URL}/api/items/${initialValues._id}/edit`)
