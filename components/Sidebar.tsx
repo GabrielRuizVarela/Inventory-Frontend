@@ -19,7 +19,7 @@ import { AppBarProps as MuiAppBarProps } from "@mui/material/AppBar";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import SearchBar2 from "./SearchBar";
-import { Category } from "../pages";
+import { Category, server } from "../pages";
 import { Add, RemoveCircleOutline } from "@mui/icons-material";
 import Alert from "./Alert";
 import { Form, Formik } from "formik";
@@ -140,7 +140,7 @@ const AddForm = ({
 			onSubmit={(values, { setSubmitting }) => {
 				setTimeout(() => {
 					setSubmitting(true);
-					fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/categories/create`, {
+					fetch(`${server}/api/categories/create`, {
 						method: "POST",
 						headers: {
 							cors: "no-cors",

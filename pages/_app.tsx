@@ -4,7 +4,7 @@ import Layout from "../components/Layout";
 import { createTheme, CssBaseline, ThemeProvider } from "@mui/material";
 import { createContext, useMemo, useState } from "react";
 import { useRouter } from "next/router";
-import { Item, Category } from ".";
+import { Item, Category, server } from ".";
 
 export const ColorModeContext = createContext({ toggleColorMode: () => {} });
 
@@ -64,7 +64,7 @@ export default function App({ Component, pageProps }: AppProps) {
 	>("success");
 	const [isAddCategory, setIsAddCategory] = useState(false);
 	const handleDeleteCategory = (id: string) => {
-		fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/categories/${id}/delete`, {
+		fetch(`${server}/api/categories/${id}/delete`, {
 			method: "DELETE",
 		})
 			.then((res) => {

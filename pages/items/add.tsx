@@ -1,7 +1,7 @@
 // Form to add a new item
 import React, { useContext } from "react";
 import { Button, Grid, Paper, Theme, useTheme } from "@mui/material";
-import { Item, StyledBox } from "../../pages/index";
+import { Item, server, StyledBox } from "../../pages/index";
 import Sidebar from "../../components/Sidebar";
 import SearchBar from "../../components/SearchBar";
 import { useRouter } from "next/router";
@@ -56,9 +56,9 @@ export function AddItemForm({
 							onSubmit={(values, { setSubmitting }) => {
 								setTimeout(() => {
 									setSubmitting(false);
-									let endpoint = `${process.env.NEXT_PUBLIC_API_URL}/api/items/create`;
+									let endpoint = `${server}/api/items/create`;
 									initialValues
-										? (endpoint = `${process.env.NEXT_PUBLIC_API_URL}/api/items/${initialValues._id}/edit`)
+										? (endpoint = `${server}/api/items/${initialValues._id}/edit`)
 										: null;
 									fetch(endpoint, {
 										method: "POST",

@@ -62,12 +62,13 @@ export default function Categories() {
 		searchValue,
 		setItems,
 		setCategories,
+		refetch,
 	} = useContext(AppContext);
 	const router = useRouter();
 	const id = router.query.id;
 	const filteredByCategory = items.filter((item) => item.category._id === id);
 	const theme = useTheme();
-	useGetData(setItems, setCategories);
+	useGetData(setItems, setCategories, refetch);
 
 	return (
 		<>

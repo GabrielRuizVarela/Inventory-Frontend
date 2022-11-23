@@ -6,7 +6,7 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
-import { Item } from "../pages";
+import { Item, server } from "../pages";
 import { Button, IconButton } from "@mui/material";
 import { DeleteOutline } from "@mui/icons-material";
 import { AppContext } from "../pages/_app";
@@ -16,7 +16,7 @@ export default function DenseTable({ items }: { items: Item[] }) {
 	const { isRemoveMode } = React.useContext(AppContext);
 	const router = useRouter();
 	const handleDelete = (id: string) => {
-		fetch(`${process.env.NEXT_PUBLIC_API_URL}/items/${id}/delete`, {
+		fetch(`${server}/items/${id}/delete`, {
 			method: "DELETE",
 		}).then((res) => {
 			if (res.status === 200) {

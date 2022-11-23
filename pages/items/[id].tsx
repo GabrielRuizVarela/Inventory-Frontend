@@ -11,7 +11,8 @@ import { useRouter } from "next/router";
 
 export default function OverflowCard() {
 	const theme = useTheme();
-	const { openSidebar, items, categories } = useContext(AppContext);
+	const { openSidebar, items, categories, refetch, setRefetch } =
+		useContext(AppContext);
 	const router = useRouter();
 	const id = router.query.id;
 	const item = items.find((item) => item._id === id) || null;
@@ -29,6 +30,8 @@ export default function OverflowCard() {
 					categories={categories}
 					theme={theme}
 					openSidebar={openSidebar}
+					refetch={refetch}
+					setRefetch={setRefetch}
 				/>
 			) : (
 				item && (
