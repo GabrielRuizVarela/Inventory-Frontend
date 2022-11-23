@@ -27,7 +27,8 @@ export default function DenseTable({ items }: { items: Item[] }) {
 	const handleDelete = (id: string) => {
 		// fetch(`http://localhost:5050/items/${id}/delete`, {
 		fetch(
-			"https://inventory-backend-production.up.railway.app/items/${id}/delete",
+			`${process.env.NEXT_PUBLIC_API_URL}/items/${id}/delete`,
+			// "https://inventory-backend-production.up.railway.app/items/${id}/delete",
 			{
 				method: "DELETE",
 			},

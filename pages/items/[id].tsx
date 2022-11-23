@@ -20,87 +20,22 @@ import { AppContext } from "../_app";
 
 export const getServerSideProps = async (context: any) => {
 	const id = context.params.id;
-	const [res1, res2] = await Promise.all([
-		fetch(`${process.env.API_URL}/api/items`),
-		fetch(`${process.env.API_URL}/api/categories`),
-		// fetch("https://inventory-backend-production.up.railway.app/items/"),
-		// fetch("https://inventory-backend-production.up.railway.app/categories"),
-	]);
-	const item = await res1.json();
-	const categories = await res2.json();
+	const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/items`);
+	// const res = await fetch(
+	//   "https://inventory-backend-production.up.railway.app/items/",
+	// );
+	const res2 = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/categories`);
+	// const res2 = await fetch(
+	// 	"https://inventory-backend-production.up.railway.app/categories/",
+	// );
+	const { items } = await res.json();
+	const { categories } = await res2.json();
 	return {
 		props: {
-			item: item.find((item: Item) => item._id === id),
+			item: items.find((item: Item) => item._id === id),
 			categories,
 		},
 	};
-};
-
-const ItemCard = ({
-	item,
-	categories,
-	handleEditClick,
-}: { item: Item; categories: Category[]; handleEditClick: () => void }) => {
-	// get id from url
-	const theme = useTheme();
-	return (
-		<Paper elevation={5} sx={{ width: "min-content", borderRadius: 3 }}>
-			<Card variant="outlined" sx={{ width: 600 }}>
-				<CardOverflow>
-					<AspectRatio ratio="2">
-						<img
-							src="/stock-photo.jpg"
-							// srcSet="https://images.unsplash.com/photo-1532614338840-ab30cf10ed36?auto=format&fit=crop&w=318&dpr=2 2x"
-							loading="lazy"
-							alt=""
-						/>
-						<Fab
-							variant="extended"
-							aria-label="add"
-							sx={{ position: "absolute", top: 10, right: 10 }}
-							onClick={handleEditClick}
-						>
-							Edit
-						</Fab>
-					</AspectRatio>
-				</CardOverflow>
-				<Typography
-					level="h2"
-					sx={{ fontSize: "xl", mt: 2, fontWeight: "bold" }}
-				>
-					{item.name}
-				</Typography>
-				<Typography level="body2" sx={{ mt: 0.5, mb: 2 }}>
-					{item.description}
-				</Typography>
-				<Divider />
-				<CardOverflow
-					variant="soft"
-					sx={{
-						display: "flex",
-						gap: 1.5,
-						py: 1.5,
-						px: "var(--Card-padding)",
-						bgcolor: "background.level1",
-					}}
-				>
-					<Typography
-						level="body3"
-						sx={{ fontWeight: "md", color: "text.secondary" }}
-					>
-						Price: ${item.price}
-					</Typography>
-					<Divider orientation="vertical" />
-					<Typography
-						level="body3"
-						sx={{ fontWeight: "md", color: "text.secondary" }}
-					>
-						Stock: {item.stock}
-					</Typography>
-				</CardOverflow>
-			</Card>
-		</Paper>
-	);
 };
 
 export default function OverflowCard({
@@ -113,7 +48,6 @@ export default function OverflowCard({
 	const handleEditClick = () => {
 		setEditMode(true);
 	};
-	// console.log(item);
 	return (
 		<>
 			<SearchBar2 />

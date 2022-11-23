@@ -16,7 +16,8 @@ export default function MediaCard({ item }: { item: Item }) {
 	const handleDelete = (id: string) => {
 		// fetch(`http://localhost:5050/items/${id}/delete`, {
 		fetch(
-			"https://inventory-backend-production.up.railway.app/items/${id}/delete",
+			`/items/${id}/delete`,
+			// "https://inventory-backend-production.up.railway.app/items/${id}/delete",
 			{
 				method: "DELETE",
 			},

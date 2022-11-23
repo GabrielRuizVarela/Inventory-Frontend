@@ -50,11 +50,11 @@ const StyledBox = styled(Box)<{ opendrawer: string; theme: Theme }>(
 // fetch from serverside
 export async function getServerSideProps(context: any) {
 	const id = context.params.id;
-	const res = await fetch(`${process.env.API_URL}/api/items`);
+	const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/items`);
 	// const res = await fetch(
 	//   "https://inventory-backend-production.up.railway.app/items/",
 	// );
-	const res2 = await fetch(`${process.env.API_URL}/api/categories`);
+	const res2 = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/categories`);
 	// const res2 = await fetch(
 	// 	"https://inventory-backend-production.up.railway.app/categories/",
 	// );

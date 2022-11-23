@@ -32,20 +32,21 @@ export const StyledBox = styled(Box)<{ opendrawer: string; theme: Theme }>(
 );
 
 export async function getServerSideProps() {
-	const res = await fetch(`${process.env.API_URL}/api/items`);
+	const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/items`);
 	// const res = await fetch(
 	//   "https://inventory-backend-production.up.railway.app/items/",
 	// );
-	const res2 = await fetch(`${process.env.API_URL}/api/categories`);
+	const res2 = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/categories`);
+	console.log(`${process.env.NEXT_PUBLIC_API_URL}/api/categories`);
 	// const res2 = await fetch(
 	// 	"https://inventory-backend-production.up.railway.app/categories/",
 	// );
-	const data = await res.json();
-	const data2 = await res2.json();
+	const { items } = await res.json();
+	const { categories } = await res2.json();
 	return {
 		props: {
-			serverItems: data,
-			serverCategories: data2,
+			serverItems: items,
+			serverCategories: categories,
 		},
 	};
 }

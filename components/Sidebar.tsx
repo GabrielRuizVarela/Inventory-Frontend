@@ -142,7 +142,8 @@ const AddForm = ({
 					setSubmitting(true);
 					// fetch("http://localhost:5050/categories/create", {
 					fetch(
-						"https://inventory-backend-production.up.railway.app/categories/create",
+						`${process.env.NEXT_PUBLIC_API_URL}}/categories/create`,
+						// "https://inventory-backend-production.up.railway.app/categories/create",
 						{
 							method: "POST",
 							headers: {

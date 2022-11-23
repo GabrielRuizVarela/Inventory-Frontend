@@ -22,14 +22,14 @@ import { AppContext } from "../_app";
 
 // get categories from server
 export const getServerSideProps = async () => {
-	const res = await fetch(`${process.env.API_URL}/api/categories`);
+	const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/categories`);
 	// const res = await fetch(
 	// 	"https://inventory-backend-production.up.railway.app/categories/",
 	// );
-	const data = await res.json();
+	const { categories } = await res.json();
 
 	return {
-		props: { categories: data },
+		props: { categories },
 	};
 };
 
@@ -42,10 +42,12 @@ export default function AddItem({
 	const { openSidebar } = useContext(AppContext);
 	return (
 		<>
-			<>
-				<Sidebar categories={categories} />
-				<SearchBar />
-			</>
+			{!initialValues && (
+				<>
+					<Sidebar categories={categories} />
+					<SearchBar />
+				</>
+			)}
 			<StyledBox
 				theme={theme}
 				opendrawer={openSidebar.toString()}
@@ -73,19 +75,22 @@ export default function AddItem({
 									category: Yup.string().required("Required"),
 								})}
 								onSubmit={(values, { setSubmitting }) => {
+									console.log(process.env.NEXT_PUBLIC_API_URL);
 									setTimeout(() => {
 										setSubmitting(false);
 										// fetch("http://localhost:5050/items/create", {
-										fetch(
-											"https://inventory-backend-production.up.railway.app/items/create",
-											{
-												method: "POST",
-												headers: {
-													"Content-Type": "application/json",
-												},
-												body: JSON.stringify(values),
+										console.log(process.env.NEXT_PUBLIC_API_URL);
+										let endpoint = `${process.env.NEXT_PUBLIC_API_URL}/api/items/create`;
+										initialValues
+											? (endpoint = `${process.env.NEXT_PUBLIC_API_URL}/api/items/${initialValues._id}/edit`)
+											: null;
+										fetch(endpoint, {
+											method: "POST",
+											headers: {
+												"Content-Type": "application/json",
 											},
-										)
+											body: JSON.stringify(values),
+										})
 											.then(() => {
 												router.push("/");
 												// console.log(values);
@@ -149,26 +154,28 @@ export default function AddItem({
 											onBlur={handleBlur}
 										/>
 										<Field
-											component={Select}
-											defaultValue="Choose a category"
-											// component='select'
+											// component={Select}
+											component='select'
+											name="category"
 											onChange={handleChange}
 											onBlur={handleBlur}
+											value={values.category}
 										>
 											<Field
-												component={MenuItem}
-												// component='option'
-												value='Choose a category'
+												// component={MenuItem}
+												component='option'
+												value="Choose a category"
 												disabled={true}
 											>
 												Choose a category
 											</Field>
 											{categories.map((category, index) => (
 												<Field
-													component={MenuItem}
-													// component='option'
+													// component={MenuItem}
+													component='option'
 													key={category._id}
 													value={category._id}
+													name={category.name}
 													label={category.name}
 												>
 													{category.name}

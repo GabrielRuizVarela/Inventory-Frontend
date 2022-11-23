@@ -21,6 +21,8 @@
     "@types/react-dom": "18.0.8",
     "formik": "^2.2.9",
     "formik-material-ui": "^4.0.0-alpha.2",
+    "mongodb": "^4.12.0",
+    "mongoose": "^6.7.3",
     "next": "13.0.3",
     "next-http-proxy-middleware": "^1.2.5",
     "react": "18.2.0",
