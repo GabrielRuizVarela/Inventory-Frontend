@@ -7,13 +7,28 @@ export default function useGetData(
   refetch: boolean,
 ) {
   useEffect(() => {
-    fetch(`${server}/api/items`)
+    fetch(`${server}items`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        cors: 'no-cors',
+        AccessControlAllowOrigin: '*',
+      },
+    })
       .then((res) => res.json())
-      .then((data) => setItems(data.items))
+      .then((data) => setItems(data))
+
       .catch((err) => console.log(err));
-    fetch(`${server}/api/categories`)
+    fetch(`${server}categories`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        cors: 'no-cors',
+        AccessControlAllowOrigin: '*',
+      },
+    })
       .then((res) => res.json())
-      .then((data) => setCategories(data.categories))
+      .then((data) => setCategories(data))
       .catch((err) => console.log(err));
   }, [refetch]);
 }

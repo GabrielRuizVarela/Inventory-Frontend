@@ -11,6 +11,7 @@ import { AppContext } from "./_app";
 import styled from "@emotion/styled";
 import Card2 from "../components/Card";
 import useGetData from "../hooks/useGetData";
+import { connect } from "../conection";
 
 const drawerWidth = 240;
 export const StyledBox = styled(Box)<{ opendrawer: string; theme: Theme }>(
@@ -52,9 +53,10 @@ export type Category = {
 };
 
 const dev = process.env.NODE_ENV !== "production";
-export const server = dev
-	? process.env.NEXT_PUBLIC_API_URL
-	: `https://${process.env.NEXT_PUBLIC_VERCEL_URL}`;
+// export const server = dev
+// 	? process.env.NEXT_PUBLIC_API_URL
+// : `https://${process.env.NEXT_PUBLIC_VERCEL_URL}`;
+export const server = "https://inventory-backend-production.up.railway.app/";
 
 export default function Home() {
 	const {
@@ -66,10 +68,11 @@ export default function Home() {
 		setItems,
 		categories,
 		setCategories,
-    refetch,
-} = useContext(AppContext);
+		refetch,
+	} = useContext(AppContext);
 	const theme = useTheme();
 	useGetData(setItems, setCategories, refetch);
+	console.log(items);
 	return (
 		<>
 			<Head>

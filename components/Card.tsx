@@ -3,7 +3,7 @@ import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
-import { Item } from "../pages/index";
+import { Item, server } from "../pages/index";
 import { Box, CardActionArea, Divider, IconButton, Stack } from "@mui/material";
 import RemoveCircleIcon from "@mui/icons-material/RemoveCircle";
 import { useRouter } from "next/router";
@@ -14,12 +14,11 @@ export default function MediaCard({ item }: { item: Item }) {
 		useContext(AppContext);
 	const router = useRouter();
 	const handleDelete = (id: string) => {
-		fetch(`api/items/${id}/delete`, {
+		fetch(`${server}/items/${id}/delete`, {
 			method: "DELETE",
 		}).then((res) => {
 			if (res.status === 200) {
 				setItems(items.filter((item) => item._id !== id));
-				setRefetch(!refetch);
 			}
 		});
 	};

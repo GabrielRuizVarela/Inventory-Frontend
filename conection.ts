@@ -12,8 +12,6 @@ export const connect = async () => {
     .catch((err) => console.log(err));
   console.log('Mongoose Connection Established');
 
-  // OUR TODO MODEL
-
   const ItemSchema = new Schema({
     name: {
       type: String,

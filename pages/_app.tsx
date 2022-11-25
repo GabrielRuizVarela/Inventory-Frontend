@@ -64,7 +64,7 @@ export default function App({ Component, pageProps }: AppProps) {
 	>("success");
 	const [isAddCategory, setIsAddCategory] = useState(false);
 	const handleDeleteCategory = (id: string) => {
-		fetch(`${server}/api/categories/${id}/delete`, {
+		fetch(`${server}/categories/${id}/delete`, {
 			method: "DELETE",
 		})
 			.then((res) => {
@@ -76,7 +76,6 @@ export default function App({ Component, pageProps }: AppProps) {
 					setAlertSeverity("success");
 					setAlertMessage("Category deleted successfully");
 					setCategories(categories.filter((category) => category._id !== id));
-					setRefetch(!refetch);
 				}
 				// if response status is 422, then the item is not deleted
 				if (res.status === 422) {

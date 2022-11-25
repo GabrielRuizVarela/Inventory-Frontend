@@ -7,9 +7,15 @@ export default async function handler(
 
   res: NextApiResponse,
 ) {
+  console.log(req);
   const { Item } = await connect();
-
-  const items = await Item.find().populate('category');
-
-  res.status(200).json({ items });
+  Item.find()
+    .populate('category')
+    .exec((err, items) => {
+      if (err) {
+        res.status(422).json({ err });
+      } else {
+        res.status(200).json({ items });
+      }
+    });
 }

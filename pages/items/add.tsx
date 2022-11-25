@@ -56,9 +56,9 @@ export function AddItemForm({
 							onSubmit={(values, { setSubmitting }) => {
 								setTimeout(() => {
 									setSubmitting(false);
-									let endpoint = `${server}/api/items/create`;
+									let endpoint = `${server}/items/create`;
 									initialValues
-										? (endpoint = `${server}/api/items/${initialValues._id}/edit`)
+										? (endpoint = `${server}/items/${initialValues._id}/edit`)
 										: null;
 									fetch(endpoint, {
 										method: "POST",

@@ -7,7 +7,7 @@ export default async function handler(
 ) {
   const { Item } = await connect();
 
-  const item = await Item.findById(req.query.id)
+  await Item.findById(req.query.id)
     .populate('category')
     .then((item) => {
       res.status(200).json({ item });
