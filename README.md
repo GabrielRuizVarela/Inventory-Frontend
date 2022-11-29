@@ -1,34 +1,38 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Inventory Manager Frontend
+
+This is the frontend for the Inventory Manager application. It is a React application that uses NextJS with Typescript.
+The backend is a NodeJS application that uses Express and MongoDB.
+![Inventory Manager](./screenshot.png)
+The aplication can perform the following actions:
+
+- **C**reate a new item
+- **R**ead all items from the database
+- **U**pdate an existing item
+- **D**elete an existing item
+- List all items
+- List items by category
+- Search for an item by name
+- Create a new category
+- Delete an empty category
 
 ## Getting Started
 
-First, run the development server:
+To get started, you will need to have NodeJS installed on your machine. You can download it from [here](https://nodejs.org/en/download/).
+
+Once you have NodeJS installed, you can clone this repository and install the dependencies by running the following commands:
+
+```bash
+git clone
+cd inventory-manager-frontend
+npm install
+```
+
+## Running the Application
+
+To run the application, you can run the following command:
 
 ```bash
 npm run dev
-# or
-yarn dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
-
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
-
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+This will start the application on port 3000. You can access the application by going to [http://localhost:3000](http://localhost:3000).
