@@ -15,6 +15,10 @@ The aplication can perform the following actions:
 - Create a new category
 - Delete an empty category
 
+[Check it out here](https://inventory-frontend-9db1.vercel.app/)
+
+[Check out the backend here](https://github.com/GabrielRuizVarela/inventory-backend)
+
 ## Getting Started
 
 To get started, you will need to have NodeJS installed on your machine. You can download it from [here](https://nodejs.org/en/download/).
