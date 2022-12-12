@@ -64,7 +64,7 @@ export default function App({ Component, pageProps }: AppProps) {
 	>("success");
 	const [isAddCategory, setIsAddCategory] = useState(false);
 	const handleDeleteCategory = (id: string) => {
-		fetch(`${server}/categories/${id}`, {
+		fetch(`${server}categories/${id}/`, {
 			method: "DELETE",
 		})
 			.then((res) => {

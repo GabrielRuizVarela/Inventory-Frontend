@@ -140,7 +140,7 @@ const AddForm = ({
 			onSubmit={(values, { setSubmitting }) => {
 				setTimeout(() => {
 					setSubmitting(true);
-					fetch(`${server}/categories`, {
+					fetch(`${server}categories`, {
 						method: "POST",
 						headers: {
 							"Content-Type": "application/json",
