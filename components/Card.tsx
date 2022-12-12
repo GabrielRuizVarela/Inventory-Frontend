@@ -1,13 +1,14 @@
-import React, { useContext } from "react";
+import { AppContext } from "../pages/_app";
+import { Item, server } from "../pages/index";
+import RemoveCircleIcon from "@mui/icons-material/RemoveCircle";
+import { Box, CardActionArea, Divider, IconButton, Stack } from "@mui/material";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
-import { Item, server } from "../pages/index";
-import { Box, CardActionArea, Divider, IconButton, Stack } from "@mui/material";
-import RemoveCircleIcon from "@mui/icons-material/RemoveCircle";
+import Image from "next/image";
 import { useRouter } from "next/router";
-import { AppContext } from "../pages/_app";
+import React, { useContext } from "react";
 
 export default function MediaCard({ item }: { item: Item }) {
 	const { isRemoveMode, refetch, setRefetch, setItems, items } =
@@ -45,17 +46,13 @@ export default function MediaCard({ item }: { item: Item }) {
 							</IconButton>
 						)}
 						<CardActionArea disabled={isRemoveMode}>
-							<CardMedia
-								component="img"
-								height="140"
-								src={item.img_url}
-								alt={item.name}
-								sx={{
-									objectFit: "contain",
-									aspectRatio: "4/3",
-									minHeight: "240px",
-								}}
-							/>
+              <Image
+              src={item.img_url}
+              alt={item.name}
+              width={300}
+              height={240}
+              style={{objectFit: "cover", aspectRatio: "4/3", minHeight: "240px"}}
+              />
 							<Divider />
 							<CardContent>
 								<Box
