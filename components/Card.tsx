@@ -14,7 +14,7 @@ export default function MediaCard({ item }: { item: Item }) {
 		useContext(AppContext);
 	const router = useRouter();
 	const handleDelete = (id: string) => {
-		fetch(`${server}/items/${id}/delete`, {
+		fetch(`${server}items/${id}/`, {
 			method: "DELETE",
 		}).then((res) => {
 			if (res.status === 200) {

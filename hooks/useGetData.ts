@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { Category, Item, server } from '../pages/index';
 
 export default function useGetData(
@@ -6,29 +6,27 @@ export default function useGetData(
   setCategories: (categories: Category[]) => void,
   refetch: boolean,
 ) {
+  const [loading, setLoading] = useState(true);
   useEffect(() => {
-    fetch(`${server}items`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        cors: 'no-cors',
-        AccessControlAllowOrigin: '*',
-      },
-    })
-      .then((res) => res.json())
-      .then((data) => setItems(data))
+    const fetchData = async () => {
+      try {
+        const itemsResponse = await fetch(`${server}items`, {
+          method: 'GET',
+        });
+        const itemsData = await itemsResponse.json();
+        console.log(itemsData);
+        setItems(itemsData);
 
-      .catch((err) => console.log(err));
-    fetch(`${server}categories`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        cors: 'no-cors',
-        AccessControlAllowOrigin: '*',
-      },
-    })
-      .then((res) => res.json())
-      .then((data) => setCategories(data))
-      .catch((err) => console.log(err));
+        const categoriesResponse = await fetch(`${server}categories`);
+        const categoriesData = await categoriesResponse.json();
+        setCategories(categoriesData);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    if (loading) {
+      fetchData();
+      setLoading(false);
+    }
   }, [refetch]);
 }

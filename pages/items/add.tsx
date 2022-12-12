@@ -56,12 +56,12 @@ export function AddItemForm({
 							onSubmit={(values, { setSubmitting }) => {
 								setTimeout(() => {
 									setSubmitting(false);
-									let endpoint = `${server}/items/create`;
+									let endpoint;
 									initialValues
-										? (endpoint = `${server}/items/${initialValues._id}/edit`)
-										: null;
+										? (endpoint = `${server}items/${initialValues._id}`)
+										: (endpoint = `${server}items`);
 									fetch(endpoint, {
-										method: "POST",
+										method: endpoint ? "PUT" : "POST",
 										headers: {
 											"Content-Type": "application/json",
 										},

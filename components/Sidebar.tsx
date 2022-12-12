@@ -140,10 +140,9 @@ const AddForm = ({
 			onSubmit={(values, { setSubmitting }) => {
 				setTimeout(() => {
 					setSubmitting(true);
-					fetch(`${server}/categories/create`, {
+					fetch(`${server}/categories`, {
 						method: "POST",
 						headers: {
-							cors: "no-cors",
 							"Content-Type": "application/json",
 						},
 						body: JSON.stringify({

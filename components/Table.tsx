@@ -16,7 +16,7 @@ export default function DenseTable({ items }: { items: Item[] }) {
 	const { isRemoveMode } = React.useContext(AppContext);
 	const router = useRouter();
 	const handleDelete = (id: string) => {
-		fetch(`${server}/items/${id}/delete`, {
+		fetch(`${server}items/${id}/`, {
 			method: "DELETE",
 		}).then((res) => {
 			if (res.status === 200) {
